@@ -5,7 +5,7 @@
     android:background="@drawable/hinhnen1"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.nhuocquy.tracnghiemapp.activity.ActivityChonMonThiThu">
+    tools:context="com.nhuocquy.tracnghiemapp.activity.MainActivity">
 
     <TextView
         android:id="@+id/tvTillte"
@@ -17,6 +17,15 @@
         android:textColor="@color/colorAccent"
         android:textSize="35dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xin chào Hoang Nhuoc Quy"
+        android:id="@+id/tvXinChao"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible" />
+
     <Button
         android:id="@+id/btnThiThu"
         android:layout_width="300dp"
@@ -36,6 +45,17 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/shape_effects"
         android:text="@string/main_thi_that"
+        android:textColor="#ffffff"
+        android:textSize="16dp"
+        />
+    <Button
+        android:id="@+id/btnXepHang"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_boder"
+        android:text="@string/main_xep_hang"
         android:textColor="#ffffff"
         android:textSize="16dp"
         />
@@ -61,16 +81,6 @@
         android:textColor="#ffffff"
         android:textSize="16dp"
         />
-    <Button
-        android:id="@+id/btnXepHang"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/shape_boder"
-        android:text="@string/main_xep_hang"
-        android:textColor="#ffffff"
-        android:textSize="16dp"
-        />
+
 
 </LinearLayout>

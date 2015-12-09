@@ -36,12 +36,13 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:ems="10"
-            android:id="@+id/edtSdt"
+            android:id="@+id/edtUsername"
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
             android:layout_marginTop="15dp"
             android:paddingBottom="10dp"
-            android:hint="Tên đăng nhập" />
+            android:hint="Tên đăng nhập"
+            android:text="username"/>
         <TextView
             android:id="@+id/tv_name_pass"
             android:layout_width="wrap_content"
@@ -52,13 +53,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtPass"
+            android:id="@+id/edtPassword"
             android:layout_gravity="center_horizontal"
             android:textSize="20dp"
             android:layout_marginTop="15dp"
             android:hint="********"
             android:inputType="textPassword"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:text="password"/>
 
     </LinearLayout>
 

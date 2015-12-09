@@ -6,7 +6,8 @@
     <string name="main_thi_thu">Thi Thử</string>
     <string name="main_thi_that">Thi Online</string>
     <string name="main_xep_hang">Xếp Hạng</string>
-    <string name="main_dang_nhap">ĐAng Nhập</string>
+    <string name="main_dang_nhap">Đăng nhập</string>
+    <string name="main_dang_xuat">Đăng xuất</string>
     <string name="main_dang_ki">Đăng Kí</string>
 
     <string name="thi_thu_khoa">Chọn Khoa</string>
@@ -20,6 +21,11 @@
     <string name="title_activity_activity_dang_ki">ActivityDangKi</string>
     <string name="title_activity_activity_de_thi">ActivityDeThi</string>
     <string name="title_activity_activity_ket_qua">ActivityKetQua</string>
+
+
+    <string name="wait">Xin chờ</string>
+    <string name="conecting">Đang kết nối...</string>
+
 
 
 
