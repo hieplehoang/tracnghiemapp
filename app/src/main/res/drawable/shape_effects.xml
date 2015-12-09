@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Phần tạo hiệu ứng dropshadow -->
+    <item>
+        <shape>
+            <corners
+                android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
+                android:topLeftRadius="5dp"
+                android:topRightRadius="5dp" >
+            </corners>
+
+            <solid android:color="#808080" />
+
+            <padding
+                android:bottom="3dp"
+                android:left="0dp"
+                android:right="3dp"
+                android:top="0dp" />
+        </shape>
+    </item>
+    <!-- Kết thúc phần tạo hiệu ứng dropshadow -->
+    <item>
+        <shape android:shape="rectangle" >
+            <!--  Đổ màu gradient cho background với angle là 270, theo chiều dọc (linear)-->
+            <gradient
+                android:angle="270"
+                android:centerColor="#008C40"
+                android:endColor="#008C40"
+                android:startColor="#008C40"
+                android:type="linear" />
+
+            <!-- Bo tròn các góc với các thông số giống hoặc khác nhau -->
+            <corners
+                android:bottomLeftRadius="5dp"
+                android:bottomRightRadius="5dp"
+                android:topLeftRadius="5dp"
+                android:topRightRadius="5dp" >
+            </corners>
+        </shape>
+    </item>
+
+</layer-list>

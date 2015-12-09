@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="vertical" android:gravity="center"
+    tools:context="com.nhuocquy.tracnghiemapp.activity.ActivityKetQua">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvMonHoc"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Môn học"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tvMonHoc1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chuyên đề java"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvDiem"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Điểm"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tvDiem1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+    <Button
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/btnSubmitDiem"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_effects"
+        android:textColor="#ffffff"
+        android:textSize="25dp"/>
+    <Button
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:text="Xếp hạng môn học"
+        android:id="@+id/btnXepHang"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/shape_effects"
+        android:textColor="#ffffff"
+        android:textSize="25dp"/>
+
+</LinearLayout>

@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.nhuocquy.tracnghiemapp.activity.ActivityKetQuaXepHang"
+    android:orientation="vertical">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tvMonHoc"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Môn học"
+        android:textSize="16dp"
+        android:layout_marginBottom="10dp" />
+    <TextView
+        android:id="@+id/tvMonHoc1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chuyên đề java"
+        android:textSize="16dp"
+        android:layout_marginBottom="10dp" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvDoKho"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Độ khó"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tvDoKho1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trung bình"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvDiemCaoNhat"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Điểm cao nhất"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tvDiemCaoNhat1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9.5đ"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvXepHang"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Xếp hạng"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tvXepHang1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hạng 3"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvViTri"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Vị trí"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+        <TextView
+            android:id="@+id/tvViTri1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textSize="16dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+<ListView
+    android:id="@+id/lvDauBang"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+</ListView>
+
+</LinearLayout>

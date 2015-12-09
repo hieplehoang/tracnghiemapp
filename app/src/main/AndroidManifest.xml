@@ -8,12 +8,35 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".MainActivity" >
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.ActivityChonMonThiThu"
+            android:label="@string/title_activity_main2" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityDangNhap"
+            android:label="@string/title_activity_activity_dang_nhap" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityDangKi"
+            android:label="@string/title_activity_activity_dang_ki" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityDeThi"
+            android:label="@string/title_activity_activity_de_thi"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityKetQua"
+            android:label="@string/title_activity_activity_ket_qua" >
         </activity>
     </application>
 
