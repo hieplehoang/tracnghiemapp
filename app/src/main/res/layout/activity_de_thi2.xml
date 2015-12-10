@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/logo"
+            android:background="@drawable/shape_effects_time"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tvCauHoi"
@@ -28,6 +28,7 @@
                 android:layout_height="80dp"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/code"
+                android:background="@drawable/yourradio"
                 android:layout_marginBottom="10dp" />
         </LinearLayout>
         <GridView
