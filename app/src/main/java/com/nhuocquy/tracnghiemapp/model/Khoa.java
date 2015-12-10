@@ -19,6 +19,12 @@ public class Khoa {
 		this.tenKhoa = tenKhoa;
 	}
 
+	public Khoa(long id, String maKhoa, String tenKhoa) {
+		this.id = id;
+		this.maKhoa = maKhoa;
+		this.tenKhoa = tenKhoa;
+	}
+
 	public long getId() {
 		return id;
 	}

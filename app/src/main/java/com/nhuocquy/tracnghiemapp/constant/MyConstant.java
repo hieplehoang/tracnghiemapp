@@ -8,4 +8,6 @@ public class MyConstant {
     public static String ID_ACCOUNT = "idAccount";
     public static String USERNAME = "username";
     public static String ACCOUNT = "account";
+    public static String LIST_KHOA = "listKhoa";
+
 }

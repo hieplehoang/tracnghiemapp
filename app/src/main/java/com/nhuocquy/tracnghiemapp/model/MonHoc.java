@@ -1,9 +1,11 @@
 package com.nhuocquy.tracnghiemapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MonHoc {
 	private long id;
 	private String tenMonHoc;
@@ -88,7 +90,7 @@ public class MonHoc {
 
 	// --------------------------------//
 
-	public double getDiemThi() {
+	public double calDiemThi() {
 		double diemThi = 0;
 		double diemTungCau = 0.5;
 		for (CauHoi cauHoi : dsCauHoi) {

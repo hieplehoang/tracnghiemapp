@@ -20,6 +20,7 @@ import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
+import com.nhuocquy.tracnghiemapp.db.DataBaseHelper;
 import com.nhuocquy.tracnghiemapp.model.Account;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -132,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "No Iternet access!!!", Toast.LENGTH_LONG).show();
         }
 
+        btnXepHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
