@@ -4,17 +4,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.adapter.GVAdapterDapAn;
+import com.nhuocquy.tracnghiemapp.model.DapAn;
 
 public class ActivityDeThi extends AppCompatActivity {
-
+    private DapAn[] mThumbIds = {
+            new DapAn(1,0,"Lỗi khi chay ","",true,true ),
+            new DapAn(1,1,"Lỗi biên dịch dòng 3 ","",true,true),
+            new DapAn(1,2,"Lỗi biên dịch dòng 5 ","",true,true),
+            new DapAn(1,3,"Kết quả là: 5  ","",true,true)};
 //    RadioGroup radioGroup1;
     GVAdapterDapAn gridViewAdapter;
     GridView gridView;
@@ -26,12 +34,18 @@ public class ActivityDeThi extends AppCompatActivity {
 //        radioGroup1.a;
         gridView = (GridView) findViewById(R.id.gvCauhoi);
 
-        gridViewAdapter = new GVAdapterDapAn(this);
+        gridViewAdapter = new GVAdapterDapAn(this, mThumbIds);
         gridView.setAdapter(gridViewAdapter);
         getListViewSize(gridView);
 
-    }
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImageView imageView = (ImageView) view.findViewById(R.id.imvHinhDapAn);
 
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

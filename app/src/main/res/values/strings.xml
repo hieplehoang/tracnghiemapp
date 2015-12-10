@@ -27,6 +27,9 @@
     <string name="xep_hang">Xếp hạng:</string>
     <string name="vi_tri">Vị trí:</string>
 
+    <string name="submited">Kết quả đạt được</string>
+
+
     <string name="title_activity_activity_dang_nhap">ActivityDangNhap</string>
 
     <string name="hello_world">Hello world!</string>
@@ -39,6 +42,8 @@
 
     <string name="wait">Xin chờ</string>
     <string name="conecting">Đang kết nối...</string>
+    <string name="title_activity_hinh_dap_an">HinhDapAn</string>
+    <string name="title_activity_activity_danh_sach_xep_hang">ActivityDanhSachXepHang</string>
 
 
 
