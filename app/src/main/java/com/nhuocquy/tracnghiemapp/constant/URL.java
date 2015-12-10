@@ -5,15 +5,22 @@ package com.nhuocquy.tracnghiemapp.constant;
  */
 public class URL {
 
-    public static String IP = "192.168.56.1";
+    public static String IP = "192.168.117.191";
     /**LOGIN_IDACCOUNT
      * 1: IP
      * 2: idAccount
      */
-    public static String LOGIN_IDACCOUNT = "http://%s:8080/tracnghiem/login?idAccount=%s";  /**LOGIN_IDACCOUNT
+    public static String LOGIN_IDACCOUNT = "http://%s:8080/tracnghiem/login?idAccount=%s";
+    /**LOGIN_IDACCOUNT
      * 1: LOGIN_USERNAME_PASSWORD
      * 2: username
      * 3: password
      */
     public static String LOGIN_USERNAME_PASSWORD = "http://%s:8080/tracnghiem/login?username=%s&password=%s";
+    /**SYNC_DATA_KHOA
+     *
+     */
+    public static String SYNC_DATA_KHOA = "http://%s:8080/tracnghiem/syncdatakhoa";
+
+    public static String REGISTER = "http://%s:8080/tracnghiem/register";
 }

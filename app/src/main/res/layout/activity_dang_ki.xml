@@ -33,14 +33,13 @@
             android:layout_gravity="center_horizontal">
 
             <TextView
-                android:id="@+id/tv_user_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Tên đăng nhập     " />
+                android:text="Mã số sinh viên   " />
 
             <EditText
-                android:id="@+id/edt_user_sign"
+                android:id="@+id/edtMSSV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -61,7 +60,7 @@
                 android:text="Mật khẩu              " />
 
             <EditText
-                android:id="@+id/edt_pass_sign"
+                android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -82,7 +81,7 @@
                 android:text="Nhập lại mật khẩu" />
 
             <EditText
-                android:id="@+id/edt_re_pass_sign"
+                android:id="@+id/edtRepass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -104,7 +103,7 @@
                 android:text="Tên hiển thị          " />
 
             <EditText
-                android:id="@+id/edt_name_sign"
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -122,10 +121,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Địa chỉ                   " />
+                android:text="Lớp         " />
 
             <EditText
-                android:id="@+id/edt_address_sign"
+                android:id="@+id/edtClass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
@@ -146,24 +145,69 @@
                 android:textSize="16dp"
                 android:text="Ngày sinh             " />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/bntNgaySinh"
-                android:elevation="2dp"
-                />
-
             <TextView
-                android:id="@+id/tv_hienthi"
+                android:id="@+id/tvBirthDay"
                 android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:layout_gravity="center_horizontal" />
 
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bntNgaySinh"
+                android:elevation="2dp"
+                android:src="@drawable/calendar" />
+
         </LinearLayout>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="Khoa" />
+
+        <Spinner
+            android:id="@+id/spinKhoa"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/cell_shape"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginBottom="20dp"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:text="Ngành" />
+
+        <Spinner
+            android:id="@+id/spinNganh"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/cell_shape"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:layout_marginBottom="20dp"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -173,7 +217,7 @@
             android:layout_width="312dp"
             android:layout_height="wrap_content"
             android:text="Đăng kí"
-            android:id="@+id/btn_sign"
+            android:id="@+id/btnSignUp"
             android:layout_row="1"
             android:layout_column="0"
             android:layout_marginTop="10dp"

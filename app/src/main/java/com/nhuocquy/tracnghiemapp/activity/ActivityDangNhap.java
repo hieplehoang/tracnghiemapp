@@ -3,6 +3,8 @@ package com.nhuocquy.tracnghiemapp.activity;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.model.Account;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 public class ActivityDangNhap extends AppCompatActivity {
@@ -47,18 +50,30 @@ public class ActivityDangNhap extends AppCompatActivity {
 
         findViews();
 
-        String username = ref.getString(MyConstant.USERNAME,"");
+        String username = ref.getString(MyConstant.USERNAME, "");
         edtUsername.setText(username);
 
         btnDangNhapLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+                NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                NetworkInfo mMobile = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+                boolean isWifiEable = mWifi.isConnected() || mMobile.isConnected();
+                if (!isWifiEable) {
+                    Toast.makeText(ActivityDangNhap.this, "No internet access!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 final String username = edtUsername.getText().toString();
                 final String password = edtPassword.getText().toString();
                 final boolean isLuuDangNhap = checkboxLdn.isChecked();
-                new AsyncTask<Void, Void, Account>() {
+                new AsyncTask<Void, Void, Integer>() {
                     final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityDangNhap.this, ActivityDangNhap.this.getResources().getString(R.string.wait), ActivityDangNhap.this.getResources().getString(R.string.conecting), true);
                     RestTemplate rest;
+                    Account account = null;
+                    int success = 1;
+                    int fail = 0;
 
                     @Override
                     protected void onPreExecute() {
@@ -68,34 +83,43 @@ public class ActivityDangNhap extends AppCompatActivity {
                     }
 
                     @Override
-                    protected Account doInBackground(Void... params) {
-                        Account account = rest.getForObject(String.format(URL.LOGIN_USERNAME_PASSWORD, URL.IP, username, password), Account.class);
-                        return account;
+                    protected Integer doInBackground(Void... params) {
+                        try {
+                            account = rest.getForObject(String.format(URL.LOGIN_USERNAME_PASSWORD, URL.IP, username, password), Account.class);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return fail;
+                        }
+                        return success;
+
                     }
 
                     @Override
-                    protected void onPostExecute(Account account) {
+                    protected void onPostExecute(Integer i) {
                         ringProgressDialog.dismiss();
-                        super.onPostExecute(account);
-                        if (account == null) {
-                            Toast.makeText(ActivityDangNhap.this, "Tài khoảng và mật khẩu không trùng khớp!", Toast.LENGTH_LONG).show();
-                        } else {
-                            if (account.isLocked()) {
-                                Toast.makeText(ActivityDangNhap.this, "Tài khoảng của bạn đã bị lock!", Toast.LENGTH_LONG).show();
-                            } else if (account.isKichHoat()) {
-                                MyVar.setAttribute( MyConstant.ACCOUNT,account);
-                                if(isLuuDangNhap){
-                                    SharedPreferences ref = getSharedPreferences(MyConstant.REF_NAME, MODE_PRIVATE);
-                                    SharedPreferences.Editor edit = ref.edit();
-                                    edit.putLong(MyConstant.ID_ACCOUNT, account.getId());
-                                    edit.putString(MyConstant.USERNAME,username);
-                                    edit.commit();
-                                }
-                                setResult(Activity.RESULT_OK);
-                                finish();
+                        if (i == success) {
+                            if (account == null) {
+                                Toast.makeText(ActivityDangNhap.this, "Tài khoảng và mật khẩu không trùng khớp!", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(ActivityDangNhap.this, "Tài khoảng chưa kích hoạt! Bạn vui lòng vào mail kích hoạt!", Toast.LENGTH_LONG).show();
+                                if (account.isLocked()) {
+                                    Toast.makeText(ActivityDangNhap.this, "Tài khoảng của bạn đã bị lock!", Toast.LENGTH_LONG).show();
+                                } else if (account.isKichHoat()) {
+                                    MyVar.setAttribute(MyConstant.ACCOUNT, account);
+                                    if (isLuuDangNhap) {
+                                        SharedPreferences ref = getSharedPreferences(MyConstant.REF_NAME, MODE_PRIVATE);
+                                        SharedPreferences.Editor edit = ref.edit();
+                                        edit.putLong(MyConstant.ID_ACCOUNT, account.getId());
+                                        edit.putString(MyConstant.USERNAME, username);
+                                        edit.commit();
+                                    }
+                                    setResult(Activity.RESULT_OK);
+                                    finish();
+                                } else {
+                                    Toast.makeText(ActivityDangNhap.this, "Tài khoảng chưa kích hoạt! Bạn vui lòng vào mail kích hoạt!", Toast.LENGTH_LONG).show();
+                                }
                             }
+                        } else {
+                            Toast.makeText(ActivityDangNhap.this, "Không thể kết nối máy chủ!", Toast.LENGTH_LONG).show();
                         }
                     }
                 }.execute();
