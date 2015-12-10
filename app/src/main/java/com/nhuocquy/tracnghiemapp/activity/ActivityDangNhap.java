@@ -4,11 +4,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.nhuocquy.tracnghiemapp.R;
 
 public class ActivityDangNhap extends AppCompatActivity {
 
+    CheckBox ckboxLuu;
+    Button btnDangNhap;
+    TextView tvQuenMatKhau;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

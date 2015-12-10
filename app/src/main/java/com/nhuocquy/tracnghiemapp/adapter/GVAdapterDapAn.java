@@ -21,14 +21,11 @@ public class GVAdapterDapAn extends ArrayAdapter<GVAdapterDapAn.GridItem> {
         super(context, R.layout.item_dap_an);
         this.mContext = context;
     }
-
-
     @Override
     public int getCount() {
         return mThumbIds.length;
     }
     @Override
-
     public long getItemId(int i) {
         return 0;
     }
@@ -38,12 +35,6 @@ public class GVAdapterDapAn extends ArrayAdapter<GVAdapterDapAn.GridItem> {
     public void setmContext(Context mContext) {
         this.mContext = mContext;
     }
-//    public AddressBook[] getmThumbIds() {
-//        return mThumbIds;
-//    }
-//    public void setmThumbIds(AddressBook[] mThumbIds) {
-//        this.mThumbIds = mThumbIds;
-//    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View grid;
@@ -64,27 +55,10 @@ public class GVAdapterDapAn extends ArrayAdapter<GVAdapterDapAn.GridItem> {
         return grid;
     }
     private GridItem[] mThumbIds = {
-            new GridItem("A","đáp án A: "+R.drawable.icon5, R.drawable.icon5),
-            new GridItem("B","Đáp án B: "+R.drawable.icon5,R.drawable.icon5),
-            new GridItem("C","Đáp án C: "+R.drawable.icon6,R.drawable.icon6),
-            new GridItem("D","Đáp án D: "+R.drawable.icon6,R.drawable.icon6)};
-//            new AddressBook("persional "+R.drawable.sample_6,R.drawable.sample_6),
-//            new AddressBook("persional "+R.drawable.sample_7,R.drawable.sample_7),
-//            new AddressBook("persional "+R.drawable.sample0, R.drawable.sample0),
-//            new AddressBook("persional "+R.drawable.sample1, R.drawable.sample1),
-//            new AddressBook("persional "+R.drawable.sample2, R.drawable.sample_3),
-//            new AddressBook("persional "+R.drawable.sample_4,R.drawable.sample_4),
-//            new AddressBook("persional "+R.drawable.sample_5,R.drawable.sample_5),
-//            new AddressBook("persional "+R.drawable.sample_6,R.drawable.sample_6),
-//            new AddressBook("persional "+R.drawable.sample_7,R.drawable.sample_7),
-//            new AddressBook("persional "+R.drawable.sample0, R.drawable.sample0),
-//            new AddressBook("persional "+R.drawable.sample1, R.drawable.sample1),
-//            new AddressBook("persional "+R.drawable.sample2, R.drawable.sample2),
-//            new AddressBook("persional "+R.drawable.sample_3,R.drawable.sample_3),
-//            new AddressBook("persional "+R.drawable.sample_4,R.drawable.sample_4),
-//            new AddressBook("persional "+R.drawable.sample_5,R.drawable.sample_5),
-//            new AddressBook("persional "+R.drawable.sample_6,R.drawable.sample_6),
-//            new AddressBook("persional "+R.drawable.sample_7,R.drawable.sample_7)};
+            new GridItem("A","Lỗi khi chay "+R.drawable.icon5, R.drawable.code),
+            new GridItem("B","Lỗi biên dịch dòng 3 "+R.drawable.icon5,R.drawable.code),
+            new GridItem("C","Lỗi biên dịch dòng 5 "+R.drawable.icon6,R.drawable.code),
+            new GridItem("D","Kết quả là: 5  "+R.drawable.icon6,R.drawable.code)};
 
     public class GridItem {
         String stt;

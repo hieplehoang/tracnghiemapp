@@ -12,6 +12,19 @@
     <string name="thi_thu_khoa">Chọn Khoa</string>
     <string name="thi_thu_nganh">Chọn Ngành</string>
     <string name="thi_thu_mon">Chọn Môn</string>
+    <string name="dang_nhap">Đăng nhập</string>
+    <string name="dang_nhap_quen_mk">Quên mật khẩu?</string>
+
+    <string name="dang_nhap_ten">Tên đăng nhập</string>
+    <string name="dang_nhap_mat_khau">Mật khẩu</string>
+    <string name="dang_nhap_luu">Lưu đăng nhập</string>
+
+    <string name="danh_sach_xep_hang">Danh sách xếp hạng</string>
+    <string name="mon_hoc">Môn học:</string>
+    <string name="do_kho">Độ khó:</string>
+    <string name="diem_cao_nhat">Điểm cao nhất:</string>
+    <string name="xep_hang">Xếp hạng:</string>
+    <string name="vi_tri">Vị trí:</string>
 
     <string name="title_activity_activity_dang_nhap">ActivityDangNhap</string>
 
@@ -20,7 +33,8 @@
     <string name="title_activity_activity_dang_ki">ActivityDangKi</string>
     <string name="title_activity_activity_de_thi">ActivityDeThi</string>
     <string name="title_activity_activity_ket_qua">ActivityKetQua</string>
-
+    <string name="title_activity_activity_ket_qua_xep_hang">ActivityKetQuaXepHang</string>
+    <string name="title_activity_activity_xep_hang">ActivityXepHang</string>
 
 
 

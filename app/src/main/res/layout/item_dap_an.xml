@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_effects_time">
     <CheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp" />
-
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:id="@+id/text"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:textSize="15sp"
         > </TextView>
     <ImageView
-        android:layout_height="50dp"
+        android:layout_height="80dp"
         android:layout_width="50dp"
-        android:src="@drawable/icon6"
-        android:id="@+id/image"> </ImageView>
+        android:src="@drawable/code"
+        android:id="@+id/image"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
 </LinearLayout>

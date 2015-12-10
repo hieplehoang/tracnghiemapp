@@ -38,6 +38,14 @@
             android:name=".activity.ActivityKetQua"
             android:label="@string/title_activity_activity_ket_qua" >
         </activity>
+        <activity
+            android:name=".activity.ActivityXepHang"
+            android:label="@string/title_activity_activity_xep_hang" >
+        </activity>
+        <activity
+            android:name=".activity.ActivityKetQuaXepHang"
+            android:label="@string/title_activity_activity_ket_qua_xep_hang" >
+        </activity>
     </application>
 
 </manifest>

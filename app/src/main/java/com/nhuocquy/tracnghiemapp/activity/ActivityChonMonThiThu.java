@@ -54,9 +54,9 @@ public class ActivityChonMonThiThu extends AppCompatActivity {
 
         spinnerMon = (Spinner) findViewById(R.id.spinMonHoc);
         list = new ArrayList<String>();
-        list.add(" Ngành CNTT ");
-        list.add(" Ngành Kinh tế ");
-        list.add(" Ngành Chăn Nuôi ");
+        list.add(" Môn CNTT ");
+        list.add(" Môn Kinh tế ");
+        list.add(" Môn Chăn Nuôi ");
         dataAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -71,19 +71,12 @@ public class ActivityChonMonThiThu extends AppCompatActivity {
     // get the selected dropdown list value
     public void addListenerOnButton() {
 
-//        spinner1 = (Spinner) findViewById(R.id.spinKhoa);
-//        spinner2 = (Spinner) findViewById(R.id.spinKhoa);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(ActivityChonMonThiThu.this,
-//                        "OnClickListener : " +
-//                                "\nSpinner 1 : " + String.valueOf(spinner1.getSelectedItem()) +
-//                                "\nSpinner 2 : " + String.valueOf(spinner2.getSelectedItem()),
-//                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityChonMonThiThu.this, ActivityDeThi.class);
                 startActivity(intent);
             }
