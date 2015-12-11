@@ -3,6 +3,7 @@ package com.nhuocquy.tracnghiemapp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -15,28 +16,30 @@ import android.widget.ImageView;
 
 import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.adapter.GVAdapterDapAn;
+import com.nhuocquy.tracnghiemapp.constant.MyConstant;
+import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.model.DapAn;
+import com.nhuocquy.tracnghiemapp.model.MonHoc;
+
+import java.util.concurrent.TimeUnit;
 
 public class ActivityDeThi extends AppCompatActivity {
-    private DapAn[] mThumbIds = {
-            new DapAn(1,0,"Lỗi khi chay ","",true,true ),
-            new DapAn(1,1,"Lỗi biên dịch dòng 3 ","",true,true),
-            new DapAn(1,2,"Lỗi biên dịch dòng 5 ","",true,true),
-            new DapAn(1,3,"Kết quả là: 5  ","",true,true)};
-//    RadioGroup radioGroup1;
+
     GVAdapterDapAn gridViewAdapter;
     GridView gridView;
+    MonHoc monHoc;
+    int cauHoiPos = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_de_thi2);
 
-//        radioGroup1.a;
         gridView = (GridView) findViewById(R.id.gvCauhoi);
 
-        gridViewAdapter = new GVAdapterDapAn(this, mThumbIds);
+        gridViewAdapter = new GVAdapterDapAn(this);
         gridView.setAdapter(gridViewAdapter);
-        getListViewSize(gridView);
+
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -45,7 +48,34 @@ public class ActivityDeThi extends AppCompatActivity {
 
             }
         });
+
+        //
+        CountDownTimer timer = new CountDownTimer(30*1000,1000) {
+            String format = "%02d:%02d";
+            @Override
+            public void onTick(long millisUntilFinished) {
+                ActivityDeThi.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+            }
+
+            @Override
+            public void onFinish() {
+                ActivityDeThi.this.setTitle("Done");
+            }
+        }.start();
+
+        setUpView();
     }
+
+    public void setUpView(){
+        gridViewAdapter.setListDapAn(monHoc.getDsCauHoi().get(cauHoiPos).getDsDapAn());
+        gridViewAdapter.notifyDataSetChanged();
+        getListViewSize(gridView);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -61,13 +91,22 @@ public class ActivityDeThi extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (item.getItemId()) {
-            case R.id.item3:
+            case R.id.mnBtnSubmit:
                 Intent intent = new Intent(this, ActivityKetQua.class);
                 startActivity(intent);
 
                 return true;
-            case R.id.item2:
-//                showHelp();
+            case R.id.mnBtnLeft:
+                if(cauHoiPos > 0){
+                    cauHoiPos--;
+                    setUpView();
+                }
+                return true;
+            case R.id.mnBtnRight:
+                    if(cauHoiPos < monHoc.getDsCauHoi().size() -1) {
+                        cauHoiPos++;
+                        setUpView();
+                    }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

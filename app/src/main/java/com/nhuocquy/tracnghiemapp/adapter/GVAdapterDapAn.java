@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,31 +16,25 @@ import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.activity.ActivityHinhDapAn;
 import com.nhuocquy.tracnghiemapp.model.DapAn;
 
+import java.util.List;
+
 /**
  * Created by TrangPig on 12/8/2015.
  */
 public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
     private Context mContext;
-    private DapAn[] mThumbIds;
-    public GVAdapterDapAn(Context context, DapAn[] mThumbIds) {
+    private List<DapAn> listDapAn;
+
+    public GVAdapterDapAn(Context context) {
         super(context, R.layout.item_dap_an);
         this.mContext = context;
-        this.mThumbIds = mThumbIds;
     }
+
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return listDapAn == null ? 0 : listDapAn.size();
     }
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-    public Context getmContext() {
-        return mContext;
-    }
-    public void setmContext(Context mContext) {
-        this.mContext = mContext;
-    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View grid;
@@ -47,7 +42,7 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
         CheckBox checkBox;
         ImageView imageView;
         TextView textView;
-        if(convertView==null){
+        if (convertView == null) {
             grid = new View(mContext);
             grid = inflater.inflate(R.layout.item_dap_an, null);
         } else {
@@ -56,30 +51,40 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
         checkBox = (CheckBox) grid.findViewById(R.id.ckboxDapAn);
         imageView = (ImageView) grid.findViewById(R.id.imvHinhDapAn);
         textView = (TextView) grid.findViewById(R.id.tvDapAn);
-        imageView.setImageResource(R.drawable.code);
-        textView.setText(mThumbIds[position].getNoiDungDA());
-        checkBox.setText(convert(mThumbIds[position].getThuTu()));
-        checkBox.setOnClickListener(new View.OnClickListener() {
+        //
+        final DapAn dapAn = listDapAn.get(position);
+
+        if (dapAn.getHinh() != null && !dapAn.getHinh().equals("")) {
+            imageView.setImageResource(R.drawable.code);
+            imageView.setVisibility(View.VISIBLE);
+        } else {
+            imageView.setVisibility(View.INVISIBLE);
+        }
+        textView.setText(dapAn.getNoiDungDA());
+        checkBox.setText(convert(dapAn.getThuTu()));
+        checkBox.setSelected(dapAn.isSelected());
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Log.e("GVDapAnAdapter", "bat lỗi chaeckbox");
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                dapAn.setSelected(isChecked);
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getmContext(), ActivityHinhDapAn.class);
-                getmContext().startActivity(intent);
-                Log.e("ActivityDeThi", "lỗi itemimage click" );
+                Intent intent = new Intent(mContext, ActivityHinhDapAn.class);
+                mContext.startActivity(intent);
+                Log.e("ActivityDeThi", "lỗi itemimage click");
             }
         });
         return grid;
     }
-    public String convert(int thuTu){
-        return Character.getName(thuTu+65).substring(Character.getName(thuTu+65).length()-1);
+
+    public String convert(int thuTu) {
+        return Character.getName(thuTu + 65).substring(Character.getName(thuTu + 65).length() - 1);
     }
-    class ViewHolder {
-        ImageView imageview;
-        CheckBox checkbox;
+
+    public void setListDapAn(List<DapAn> listDapAn) {
+        this.listDapAn = listDapAn;
     }
 }

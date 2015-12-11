@@ -26,10 +26,12 @@ import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
+import com.nhuocquy.tracnghiemapp.dao.UtilDao;
 import com.nhuocquy.tracnghiemapp.model.Account;
 import com.nhuocquy.tracnghiemapp.model.Khoa;
 import com.nhuocquy.tracnghiemapp.model.dto.MyStatus;
 
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -103,6 +105,10 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(ActivityDangKi.this, "Bạn chưa nhập password!", Toast.LENGTH_LONG).show();
             return;
         }
+        if (pass.length() < 8) {
+            Toast.makeText(ActivityDangKi.this, "Mật khẩu tối thiểu 8 ký tự nhé!", Toast.LENGTH_LONG).show();
+            return;
+        }
         String repass = edtRepass.getText().toString();
         if (repass.equals("")) {
             Toast.makeText(ActivityDangKi.this, "Bạn chưa nhập lại password!", Toast.LENGTH_LONG).show();
@@ -119,10 +125,11 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
             return;
         }
         String classs = edtClass.getText().toString();
-        if( classs.equals("")) {
+        if (classs.equals("")) {
             Toast.makeText(ActivityDangKi.this, "Bạn chưa nhập lớp!", Toast.LENGTH_LONG).show();
             return;
-        };
+        }
+        ;
         String birtdDay = tvBirthDay.getText().toString();
         if (birtdDay.equals("")) {
             Toast.makeText(ActivityDangKi.this, "Bạn chưa chọn ngày sinh!", Toast.LENGTH_LONG).show();
@@ -158,6 +165,8 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
             protected void onPreExecute() {
                 rest = new RestTemplate();
                 rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                ((SimpleClientHttpRequestFactory) rest.getRequestFactory()).setReadTimeout(MyConstant.READ_TIME_OUT);
+                ((SimpleClientHttpRequestFactory) rest.getRequestFactory()).setConnectTimeout(MyConstant.CONNECT_TIME_OUT);
             }
 
             @Override
@@ -211,7 +220,7 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
     }
 
     private void setUpView() {
-        spinnerArrayAdapterKhoa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listKhoaName(listKhoa)); //selected item will look like a spinner set from XML
+        spinnerArrayAdapterKhoa = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, UtilDao.listKhoaName(listKhoa)); //selected item will look like a spinner set from XML
         spinnerArrayAdapterKhoa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinKhoa.setAdapter(spinnerArrayAdapterKhoa);
 
@@ -224,9 +233,10 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
 //                for (int i = 0; i < nganhName.length; i++) {
 //                    spinnerArrayAdapterNganh.insert(nganhName[i], i);
 //                }
-                spinnerArrayAdapterNganh = new ArrayAdapter<String>(ActivityDangKi.this, android.R.layout.simple_spinner_item, listNganhNameOfKhoa(listKhoa, khoaPos)); //selected item will look like a spinner set from XML
+                spinnerArrayAdapterNganh = new ArrayAdapter<String>(ActivityDangKi.this, android.R.layout.simple_spinner_item, UtilDao.listNganhNameOfKhoa(listKhoa, khoaPos)); //selected item will look like a spinner set from XML
                 spinnerArrayAdapterNganh.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinNganh.setAdapter(spinnerArrayAdapterNganh);
+                nganhPos = -1;
                 spinnerArrayAdapterNganh.notifyDataSetChanged();
             }
 
@@ -236,7 +246,7 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        spinnerArrayAdapterNganh = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listNganhNameOfKhoa(listKhoa, khoaPos)); //selected item will look like a spinner set from XML
+        spinnerArrayAdapterNganh = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, UtilDao.listNganhNameOfKhoa(listKhoa, khoaPos)); //selected item will look like a spinner set from XML
         spinnerArrayAdapterNganh.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinNganh.setAdapter(spinnerArrayAdapterNganh);
 
@@ -285,12 +295,19 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
                 protected void onPreExecute() {
                     rest = new RestTemplate();
                     rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    ((SimpleClientHttpRequestFactory)rest.getRequestFactory()).setReadTimeout(MyConstant.READ_TIME_OUT);
+                    ((SimpleClientHttpRequestFactory)rest.getRequestFactory()).setConnectTimeout(MyConstant.CONNECT_TIME_OUT);
                 }
 
                 @Override
                 protected List<Khoa> doInBackground(Void... params) {
-                    Khoa[] khoas = rest.getForObject(String.format(URL.SYNC_DATA_KHOA, URL.IP), Khoa[].class);
-                    return Arrays.asList(khoas);
+                    try {
+                        Khoa[] khoas = rest.getForObject(String.format(URL.SYNC_DATA_KHOA, URL.IP), Khoa[].class);
+                        return Arrays.asList(khoas);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        return null;
+                    }
                 }
 
                 @Override
@@ -303,7 +320,7 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
                         listKhoa = khoas;
                         Toast.makeText(ActivityDangKi.this, "ok!", Toast.LENGTH_LONG).show();
                         //
-                        spinnerArrayAdapterKhoa = new ArrayAdapter<String>(ActivityDangKi.this, android.R.layout.simple_spinner_item, listKhoaName(listKhoa)); //selected item will look like a spinner set from XML
+                        spinnerArrayAdapterKhoa = new ArrayAdapter<String>(ActivityDangKi.this, android.R.layout.simple_spinner_item, UtilDao.listKhoaName(listKhoa)); //selected item will look like a spinner set from XML
                         spinnerArrayAdapterKhoa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinKhoa.setAdapter(spinnerArrayAdapterKhoa);
                         spinnerArrayAdapterKhoa.notifyDataSetChanged();
@@ -335,27 +352,6 @@ public class ActivityDangKi extends AppCompatActivity implements View.OnClickLis
         return super.onOptionsItemSelected(item);
     }
 
-    private String[] listKhoaName(List<Khoa> list) {
-        if (list == null)
-            return new String[]{"Chọn khoa"};
-        String[] arr = new String[list.size() + 1];
-        arr[0] = "Chọn khoa";
-        for (int i = 0; i < list.size(); i++) {
-            arr[i + 1] = list.get(i).getTenKhoa();
-        }
-        return arr;
-    }
 
-    private String[] listNganhNameOfKhoa(List<Khoa> list, int pos) {
-        if (list == null || pos < 0)
-            return new String[]{"Chọn ngành."};
-        Khoa khoa = list.get(pos);
-        String[] arr = new String[khoa.getDsNganh().size() + 1];
-        arr[0] = "Chọn ngành.";
-        for (int i = 0; i < khoa.getDsNganh().size(); i++) {
-            arr[i + 1] = khoa.getDsNganh().get(i).getTenNganh();
-        }
-        return arr;
-    }
 }
 

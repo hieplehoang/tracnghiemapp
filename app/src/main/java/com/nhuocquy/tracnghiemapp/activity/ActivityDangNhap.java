@@ -23,6 +23,7 @@ import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.model.Account;
 
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -80,6 +81,8 @@ public class ActivityDangNhap extends AppCompatActivity {
                         super.onPreExecute();
                         rest = new RestTemplate();
                         rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                        ((SimpleClientHttpRequestFactory)rest.getRequestFactory()).setReadTimeout(MyConstant.READ_TIME_OUT);
+                        ((SimpleClientHttpRequestFactory)rest.getRequestFactory()).setConnectTimeout(MyConstant.CONNECT_TIME_OUT);
                     }
 
                     @Override

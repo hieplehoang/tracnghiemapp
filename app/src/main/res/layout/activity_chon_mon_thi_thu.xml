@@ -65,6 +65,24 @@
         android:textColor="#000000"
         android:textSize="16dp"
         android:layout_marginBottom="20dp"
+        /><TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="center_horizontal"
+        android:text="@string/thi_do_kho"
+        android:textColor="#228B22"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/spinDoKho"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/cell_shape"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:layout_marginBottom="20dp"
         />
     <Button
         android:id="@+id/btnSubmit"

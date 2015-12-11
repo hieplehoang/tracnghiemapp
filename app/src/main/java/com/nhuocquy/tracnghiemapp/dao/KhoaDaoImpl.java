@@ -92,12 +92,31 @@ public class KhoaDaoImpl extends DataBaseHelper implements KhoaDao {
             db = this.getReadableDatabase();
             Cursor res = db.rawQuery("select * from " + TABLE_KHOA, null);
             res.moveToFirst();
-            while (res.isAfterLast() == false) {
+            while (!res.isAfterLast()) {
                 list.add(new Khoa(res.getInt(res.getColumnIndex(IDKHOA)), res.getString(res.getColumnIndex(MA_KHOA)),res.getString(res.getColumnIndex(TEN_KHOA)) ));
                 res.moveToNext();
             }
             for (Khoa khoa: list ) {
                 res = db.rawQuery("select * from " + TABLE_NGANH + " where " + NGANH_KHOA_ID + " ? ", new String[]{String.valueOf(khoa.getId())});
+                while(!res.isAfterLast()){
+                    Nganh nganh = new Nganh();
+                    nganh.setId(res.getInt(res.getColumnIndex(IDNGANH)));
+                    nganh.setMaNganh(res.getString(res.getColumnIndex(MA_NGANH)));
+                    nganh.setTenNganh(res.getString(res.getColumnIndex(TEN_NGANH)));
+                    res.moveToNext();
+//                    Cursor res2 = db.rawQuery("select * from " + TABLE_NGANH + " as mh inner join " + TABLE_NGANH_MONHOC + " as nmh on mh." + ID_NGANH + " ");
+                    Cursor res2 = db.rawQuery("select * from monhoc as mh inner join nganh_monhoc  as nmh on mh.dsMonHoc_id = mh.id where mnh.Nganh_id = ?", new String[]{String.valueOf(nganh.getId())});
+                    while(!res2.isAfterLast()){
+                        MonHoc monHoc = new MonHoc();
+                        monHoc.setId(res2.getInt(res2.getColumnIndex(IDNGANH)));
+                        monHoc.setMaMH(res2.getString(res2.getColumnIndex(MA_MONHOC)));
+                        monHoc.setTenMonHoc(res2.getString(res2.getColumnIndex(TEN_MONHOC)));
+                        monHoc.setThoiGian(res2.getInt(res2.getColumnIndex(THOI_GIAN)));
+                        nganh.addMonHoc(monHoc);
+                        res2.moveToNext();
+                    }
+                    khoa.addNganh(nganh);
+                }
             }
         } catch (SQLiteException e) {
             throw e;

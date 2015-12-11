@@ -4,10 +4,10 @@
     tools:context="com.nhuocquy.tracnghiemapp.activity.ActivityDeThi">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:title="Item 1" android:id="@+id/item1" app:showAsAction="always" android:icon="@drawable/lefticon"/>
+    <item android:title="Item 1" android:id="@+id/mnBtnLeft" app:showAsAction="always" android:icon="@drawable/lefticon"/>
 
-    <item android:title="Item 2" android:id="@+id/item2" app:showAsAction="always"  android:icon="@drawable/righticon"/>
+    <item android:title="Item 2" android:id="@+id/mnBtnRight" app:showAsAction="always"  android:icon="@drawable/righticon"/>
 
-    <item android:title="Item 3" android:id="@+id/item3"  app:showAsAction="ifRoom"  android:icon="@drawable/checkok"/>
+    <item android:title="Item 3" android:id="@+id/mnBtnSubmit"  app:showAsAction="ifRoom"  android:icon="@drawable/checkok"/>
 
 </menu>

@@ -23,6 +23,7 @@ import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.db.DataBaseHelper;
 import com.nhuocquy.tracnghiemapp.model.Account;
 
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
     TextView tvXinChao;
     boolean isDangNhap, isWifiEable;
     Account account;
+    SharedPreferences ref = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final SharedPreferences ref = getSharedPreferences(MyConstant.REF_NAME, MODE_PRIVATE);
+        ref = getSharedPreferences(MyConstant.REF_NAME, MODE_PRIVATE);
 
         btnThiThu = (Button) findViewById(R.id.btnThiThu);
         btnThiOnline = (Button) findViewById(R.id.btnThiThat);
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                     SharedPreferences.Editor edit = ref.edit();
                     edit.remove(MyConstant.ID_ACCOUNT);
                     edit.commit();
-                    MyVar.setAttribute(MyConstant.ACCOUNT,null);
+                    MyVar.setAttribute(MyConstant.ACCOUNT, null);
                     finish();
                     startActivity(getIntent());
                 } else {
@@ -85,6 +87,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        btnXepHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        autoLogin();
+    }
+
+    private void autoLogin() {
         // --check network
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -100,22 +114,30 @@ public class MainActivity extends AppCompatActivity {
         // check Account is login--
 
         if (isWifiEable) { // neu wifi enable
-            if (!isDangNhap ) { // neu chua dang nhap
-                if(idAccount != -1) { // va da luu tai khoang
+            if (!isDangNhap) { // neu chua dang nhap
+                if (idAccount != -1) { // va da luu tai khoang
                     new AsyncTask<Long, Void, Account>() {
                         RestTemplate rest;
                         final ProgressDialog ringProgressDialog = ProgressDialog.show(MainActivity.this, MainActivity.this.getResources().getString(R.string.wait), MainActivity.this.getResources().getString(R.string.conecting), true);
+
                         @Override
                         protected void onPreExecute() {
                             super.onPreExecute();
                             rest = new RestTemplate();
                             rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                            ((SimpleClientHttpRequestFactory) rest.getRequestFactory()).setReadTimeout(MyConstant.READ_TIME_OUT);
+                            ((SimpleClientHttpRequestFactory) rest.getRequestFactory()).setConnectTimeout(MyConstant.CONNECT_TIME_OUT);
                         }
 
                         @Override
                         protected Account doInBackground(Long... idAccounts) {
-                            Account account = rest.getForObject(String.format(URL.LOGIN_IDACCOUNT, URL.IP, idAccounts[0]), Account.class);
-                            return account;
+                            try {
+                                Account account = rest.getForObject(String.format(URL.LOGIN_IDACCOUNT, URL.IP, idAccounts[0]), Account.class);
+                                return account;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return null;
                         }
 
                         @Override
@@ -124,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                             ringProgressDialog.dismiss();
                             if (account == null) {
                                 setUpForNoneLogin();
+                                Toast.makeText(MainActivity.this, "Không thể kết nối máy chủ!", Toast.LENGTH_LONG).show();
                             } else {
                                 MyVar.setAttribute(MyConstant.ACCOUNT, account);
                                 setUpForLogined();
@@ -138,13 +161,6 @@ public class MainActivity extends AppCompatActivity {
         } else {// neu wifi khong enable
             Toast.makeText(MainActivity.this, "No Iternet access!!!", Toast.LENGTH_LONG).show();
         }
-
-        btnXepHang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
     @Override

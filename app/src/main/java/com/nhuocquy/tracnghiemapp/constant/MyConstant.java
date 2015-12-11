@@ -9,5 +9,8 @@ public class MyConstant {
     public static String USERNAME = "username";
     public static String ACCOUNT = "account";
     public static String LIST_KHOA = "listKhoa";
+    public static String MON_HOC = "monHoc";
+    public static int CONNECT_TIME_OUT = 15*1000;
+    public static int READ_TIME_OUT = 30*1000;
 
 }
