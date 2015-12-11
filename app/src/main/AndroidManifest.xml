@@ -53,6 +53,10 @@
             android:name=".activity.ActivityDanhSachXepHang"
             android:label="@string/title_activity_activity_danh_sach_xep_hang" >
         </activity>
+        <activity
+            android:name=".activity.ActivityKetQuaSubmit"
+            android:label="@string/title_activity_activity_ket_qua_submit" >
+        </activity>
     </application>
 
 </manifest>

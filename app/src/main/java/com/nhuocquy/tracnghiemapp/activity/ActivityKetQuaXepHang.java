@@ -4,15 +4,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.nhuocquy.tracnghiemapp.R;
+import com.nhuocquy.tracnghiemapp.adapter.LVAdapterDauBang;
+import com.nhuocquy.tracnghiemapp.model.DauBang;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityKetQuaXepHang extends AppCompatActivity {
-
+    List<DauBang> list;
+    ListView listView;
+    LVAdapterDauBang lvAdapterDauBang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_qua_xep_hang);
+        listView = (ListView) findViewById(R.id.lvDauBang);
+        // tao co so du lieu tam
+        list = new ArrayList<>();
+        list.add(new DauBang());
+        list.add(new DauBang());
+        list.add(new DauBang());
+        list.add(new DauBang());
+        list.add(new DauBang());
+        list.add(new DauBang());
+        list.add(new DauBang());
+        list.add(new DauBang());
+
+        lvAdapterDauBang = new LVAdapterDauBang(this,list);
+        listView.setAdapter(lvAdapterDauBang);
     }
 
     @Override

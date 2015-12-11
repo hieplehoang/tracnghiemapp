@@ -29,7 +29,9 @@
     <string name="vi_tri">Vị trí:</string>
 
     <string name="submited">Kết quả đạt được</string>
-
+    <string name="thong_tin_mon_hoc">Thông tin môn học</string>
+    <string name="khoa">Khoa:</string>
+    <string name="nganh">Ngành:</string>
 
     <string name="title_activity_activity_dang_nhap">ActivityDangNhap</string>
 
@@ -45,6 +47,7 @@
     <string name="conecting">Đang kết nối...</string>
     <string name="title_activity_hinh_dap_an">HinhDapAn</string>
     <string name="title_activity_activity_danh_sach_xep_hang">ActivityDanhSachXepHang</string>
+    <string name="title_activity_activity_ket_qua_submit">ActivityKetQuaSubmit</string>
 
 
 
