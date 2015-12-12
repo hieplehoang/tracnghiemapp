@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nhuocquy.tracnghiemapp.R;
+import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.adapter.GVAdapterDapAn;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
@@ -25,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityDeThi extends AppCompatActivity {
 
+    TextView tvCauHoi ;
+    ImageView imgCauHoi;
     GVAdapterDapAn gridViewAdapter;
     GridView gridView;
     MonHoc monHoc;
@@ -34,6 +38,16 @@ public class ActivityDeThi extends AppCompatActivity {
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_de_thi2);
+
+        tvCauHoi = (TextView) findViewById(R.id.tvCauHoi);
+        imgCauHoi = (ImageView) findViewById(R.id.imgCauHoi);
+        imgCauHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityDeThi.this, ActivityPhotoView.class);
+                ActivityDeThi.this.startActivity(intent);
+            }
+        });
 
         gridView = (GridView) findViewById(R.id.gvCauhoi);
 
@@ -70,10 +84,13 @@ public class ActivityDeThi extends AppCompatActivity {
     }
 
     public void setUpView(){
+        tvCauHoi.setText(String.format("Câu %s: %s", cauHoiPos+1, monHoc.getDsCauHoi().get(cauHoiPos).getNoiDung()));
+
         gridViewAdapter.setListDapAn(monHoc.getDsCauHoi().get(cauHoiPos).getDsDapAn());
         gridViewAdapter.notifyDataSetChanged();
         getListViewSize(gridView);
 
+        imgCauHoi.setVisibility(monHoc.getDsCauHoi().get(cauHoiPos).getDsHinh().isEmpty() ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override

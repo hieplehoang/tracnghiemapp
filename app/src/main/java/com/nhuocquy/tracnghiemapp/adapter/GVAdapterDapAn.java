@@ -1,5 +1,6 @@
 package com.nhuocquy.tracnghiemapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.activity.ActivityHinhDapAn;
+import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.model.DapAn;
 
 import java.util.List;
@@ -37,23 +39,18 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        CheckBox checkBox;
+        final CheckBox checkBox;
         ImageView imageView;
         TextView textView;
         if (convertView == null) {
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item_dap_an, null);
-        } else {
-            grid = (View) convertView;
+            convertView =((Activity) mContext).getLayoutInflater().inflate(R.layout.item_dap_an, null);
         }
-        checkBox = (CheckBox) grid.findViewById(R.id.ckboxDapAn);
-        imageView = (ImageView) grid.findViewById(R.id.imvHinhDapAn);
-        textView = (TextView) grid.findViewById(R.id.tvDapAn);
+        checkBox = (CheckBox) convertView.findViewById(R.id.ckboxDapAn);
+        imageView = (ImageView) convertView.findViewById(R.id.imvHinhDapAn);
+        textView = (TextView) convertView.findViewById(R.id.tvDapAn);
         //
         final DapAn dapAn = listDapAn.get(position);
-
+        Log.e("Adapter...", dapAn.toString());
         if (dapAn.getHinh() != null && !dapAn.getHinh().equals("")) {
             imageView.setImageResource(R.drawable.code);
             imageView.setVisibility(View.VISIBLE);
@@ -61,23 +58,27 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
             imageView.setVisibility(View.INVISIBLE);
         }
         textView.setText(dapAn.getNoiDungDA());
-        checkBox.setText(convert(dapAn.getThuTu()));
-        checkBox.setSelected(dapAn.isSelected());
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+//        checkBox.setText(convert(dapAn.getThuTu()));
+        checkBox.setText(convert(position));
+        checkBox.setChecked(dapAn.isSelected());
+
+        checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                dapAn.setSelected(isChecked);
+            public void onClick(View v) {
+                dapAn.setSelected(checkBox.isChecked());
+                Log.e("Adapter...", dapAn.toString());
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, ActivityHinhDapAn.class);
+                Intent intent = new Intent(mContext, ActivityPhotoView.class);
                 mContext.startActivity(intent);
                 Log.e("ActivityDeThi", "lỗi itemimage click");
             }
         });
-        return grid;
+        return convertView;
     }
 
     public String convert(int thuTu) {
