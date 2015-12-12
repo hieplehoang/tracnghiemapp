@@ -29,7 +29,8 @@
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/code"
                 android:background="@drawable/yourradio"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:id="@+id/imgCauHoi" />
         </LinearLayout>
         <GridView
             android:layout_width="fill_parent"
