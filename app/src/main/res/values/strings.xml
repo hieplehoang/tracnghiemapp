@@ -27,6 +27,9 @@
     <string name="diem_cao_nhat">Điểm cao nhất:</string>
     <string name="xep_hang">Xếp hạng:</string>
     <string name="vi_tri">Vị trí:</string>
+    <string name="thoi_gian">Thời gian:</string>
+    <string name="so_lg_cau_hoi">Số câu:</string>
+    <string name="diem">Điểm</string>
 
     <string name="submited">Kết quả đạt được</string>
     <string name="thong_tin_mon_hoc">Thông tin môn học</string>

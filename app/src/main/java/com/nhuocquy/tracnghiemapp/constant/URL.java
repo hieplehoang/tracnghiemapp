@@ -5,7 +5,7 @@ package com.nhuocquy.tracnghiemapp.constant;
  */
 public class URL {
 
-    public static String IP = "192.168.56.1";
+    public static String IP = "192.168.117.191";
     /**LOGIN_IDACCOUNT
      * 1: IP
      * 2: idAccount
@@ -32,4 +32,6 @@ public class URL {
      * 3: doKho
      */
     public static String THITHU = "http://%s:8080/tracnghiem/thithu?idMonHoc=%s&doKho=%s";
+
+    public static String DANHSACH_XEPHANG = "http://%s:8080/tracnghiem/getxephangthithu?idAccount=%s&idMonHoc=%s&doKho=%s";
 }

@@ -125,7 +125,7 @@ public class ActivityChonMonThiThu extends AppCompatActivity implements View.OnC
                 }else{
                     Toast.makeText(ActivityChonMonThiThu.this, monHoc.getTenMonHoc(), Toast.LENGTH_LONG).show();
                     MyVar.setAttribute(MyConstant.MON_HOC, monHoc);
-                    Intent intent = new Intent(ActivityChonMonThiThu.this, ActivityDeThi.class);
+                    Intent intent = new Intent(ActivityChonMonThiThu.this, ActivityKetQuaSubmit.class);
                     ActivityChonMonThiThu.this.startActivity(intent);
                 }
             }

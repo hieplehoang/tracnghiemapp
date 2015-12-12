@@ -44,9 +44,9 @@ public class LVAdapterDauBang extends ArrayAdapter<DauBang>{
         tvXepHang = (TextView) view.findViewById(R.id.tvXepHang);
         tvDiem = (TextView) view.findViewById(R.id.tvDiem);
 
-        tvMonHoc.setText("Nguyễn Văn Thanh " + position);
-        tvDiem.setText(position+3);
-        tvXepHang.setText( position);
+        tvMonHoc.setText(list.get(position).getTen());
+        tvDiem.setText(position+3+"");
+        tvXepHang.setText( position+"");
         return view;
     }
 }

@@ -7,19 +7,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.nhuocquy.tracnghiemapp.R;
+import com.nhuocquy.tracnghiemapp.constant.MyConstant;
+import com.nhuocquy.tracnghiemapp.constant.MyVar;
+import com.nhuocquy.tracnghiemapp.model.MonHoc;
 
 public class ActivityKetQuaSubmit extends AppCompatActivity {
-
+    MonHoc monHoc;
     Button btnLamBai, btnThoat;
+    TextView tvTenMonHoc, tvThoiGian, tvSlCauHoi, tvDoKho;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_qua_submit);
 
+        monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
+
+        tvTenMonHoc= (TextView) findViewById(R.id.tvTenMonHoc);
+        tvThoiGian= (TextView) findViewById(R.id.tvThoiGian);
+        tvSlCauHoi= (TextView) findViewById(R.id.tvSlCauHoi);
+        tvDoKho= (TextView) findViewById(R.id.tvDoKho);
+
         btnLamBai = (Button) findViewById(R.id.btnLamBai);
         btnThoat = (Button) findViewById(R.id.btnThoat);
+
+        tvTenMonHoc.setText(monHoc.getTenMonHoc());
+        tvThoiGian.setText(monHoc.getThoiGian()+ " phút" );
+        tvSlCauHoi.setText(monHoc.getSoLgCauHoi()+ " câu");
+        tvDoKho.setText(monHoc.getDoKho()==1?monHoc.getDoKho()==2?"Khó":"Trung bình":"Dễ");
 
         btnLamBai.setOnClickListener(new View.OnClickListener() {
             @Override

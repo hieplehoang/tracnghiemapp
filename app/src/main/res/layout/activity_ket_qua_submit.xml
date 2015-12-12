@@ -21,6 +21,8 @@
             android:textColor="@color/colorAccent"
             android:textSize="25dp"
             android:textStyle="bold" />
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,49 +30,7 @@
             android:layout_marginLeft="50dp"
             >
             <TextView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="@string/khoa"
-                android:textSize="22dp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp" />
-            <TextView
-                android:id="@+id/tvKhoa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Khoa CNTT"
-                android:textSize="22dp"
-                android:layout_marginBottom="10dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="50dp"
-            >
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="@string/nganh"
-            android:textSize="22dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp" />
-        <TextView
-            android:id="@+id/tvNganh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ngành CNTT"
-            android:textSize="22dp"
-            android:layout_marginBottom="10dp" />
-    </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginLeft="50dp"
-            >
-            <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/mon_hoc"
                 android:textSize="22dp"
@@ -91,7 +51,49 @@
             android:layout_marginLeft="50dp"
             >
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/thoi_gian"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+            <TextView
+                android:id="@+id/tvThoiGian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30 phút"
+                android:textSize="22dp"
+                android:layout_marginBottom="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="50dp"
+            >
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/so_lg_cau_hoi"
+                android:textSize="22dp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+            <TextView
+                android:id="@+id/tvSlCauHoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="22dp"
+                android:layout_marginBottom="10dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="50dp"
+            >
+            <TextView
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:text="@string/do_kho"
                 android:textSize="22dp"
