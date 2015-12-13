@@ -17,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nhuocquy.tracnghiemapp.R;
+import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.db.DataBaseHelper;
 import com.nhuocquy.tracnghiemapp.model.Account;
+import com.nhuocquy.tracnghiemapp.service.ServiceThiThu;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -40,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, ServiceThiThu.class);
+        startService(intent);
+
         ref = getSharedPreferences(MyConstant.REF_NAME, MODE_PRIVATE);
 
         btnThiThu = (Button) findViewById(R.id.btnThiThu);
@@ -52,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, ActivityChonMonThiThu.class);
-                startActivity(intent);
-            }
-        });
-        btnXepHang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityDanhSachXepHang.class);
                 startActivity(intent);
             }
         });
@@ -91,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
         btnXepHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityDanhSachXepHang.class);
+                Intent intent = new Intent(MainActivity.this, ActivityPhotoView.class);
+//                Intent intent = new Intent(MainActivity.this, ActivityDanhSachXepHang.class);
                 startActivity(intent);
             }
         });
@@ -184,6 +184,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent  intent = new Intent(this, ServiceThiThu.class);
+        stopService(intent);
     }
 
     @Override

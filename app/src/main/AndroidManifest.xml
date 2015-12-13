@@ -23,37 +23,42 @@
         </activity>
         <activity
             android:name=".activity.ActivityChonMonThiThu"
-            android:label="@string/title_activity_main2"></activity>
+            android:label="@string/title_activity_main2" />
         <activity
             android:name=".activity.ActivityDangNhap"
-            android:label="@string/title_activity_activity_dang_nhap"></activity>
+            android:label="@string/title_activity_activity_dang_nhap" />
         <activity
             android:name=".activity.ActivityDangKi"
-            android:label="@string/title_activity_activity_dang_ki"></activity>
+            android:label="@string/title_activity_activity_dang_ki" />
         <activity
             android:name=".activity.ActivityDeThi"
             android:label="@string/title_activity_activity_de_thi"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ActivityKetQua"
-            android:label="@string/title_activity_activity_ket_qua"></activity>
+            android:label="@string/title_activity_activity_ket_qua" />
         <activity
             android:name=".activity.ActivityKetQuaXepHang"
-            android:label="@string/title_activity_activity_ket_qua_xep_hang"></activity>
+            android:label="@string/title_activity_activity_ket_qua_xep_hang" />
         <activity
             android:name=".activity.ActivityHinhDapAn"
             android:label="@string/title_activity_hinh_dap_an"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.ActivityDanhSachXepHang"
-            android:label="@string/title_activity_activity_danh_sach_xep_hang"></activity>
+            android:label="@string/title_activity_activity_danh_sach_xep_hang" />
         <activity
             android:name=".activity.ActivityKetQuaSubmit"
-            android:label="@string/title_activity_activity_ket_qua_submit"></activity>
+            android:label="@string/title_activity_activity_ket_qua_submit" />
         <activity
             android:name=".activity.photoview.ActivityPhotoView"
             android:label="@string/title_activity_activity_ket_qua_submit"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
+
+        <service
+            android:name=".service.ServiceThiThu"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
