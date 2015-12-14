@@ -90,9 +90,13 @@ public class MainActivity extends AppCompatActivity {
         btnXepHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityPhotoView.class);
-//                Intent intent = new Intent(MainActivity.this, ActivityDanhSachXepHang.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, ActivityPhotoView.class);
+                account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
+                if(account != null) {
+                    Intent intent = new Intent(MainActivity.this, ActivityDanhSachXepHang.class);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(MainActivity.this, "No Account!!!", Toast.LENGTH_LONG).show();
             }
         });
 

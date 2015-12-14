@@ -33,5 +33,8 @@ public class URL {
      */
     public static String THITHU = "http://%s:8080/tracnghiem/thithu?idMonHoc=%s&doKho=%s";
 
-    public static String DANHSACH_XEPHANG = "http://%s:8080/tracnghiem/getxephangthithu?idAccount=%s&idMonHoc=%s&doKho=%s";
+    public static String XEPHANG_ACC = "http://%s:8080/tracnghiem/getxephangthithu?idAccount=%s&idMonHoc=%s&doKho=%s";
+    public static String XEPHANG = "http://%s:8080/tracnghiem/getxephangthithu?idMonHoc=%s&doKho=%s";
+
+    public static String LIST_XEPHANG = "http://%s:8080/tracnghiem/listxephangthithu?idAccount=%s";
 }

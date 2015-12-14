@@ -11,6 +11,7 @@ public class MyConstant {
     public static String LIST_KHOA = "listKhoa";
     public static String MON_HOC = "monHoc";
     public static String XEP_HANG_MON_HOC = "xepHangMonHoc";
+    public static String LIST_XEP_HANG_MON_HOC = "listXepHangMonHoc";
     public static int CONNECT_TIME_OUT = 3*1000;
     public static int READ_TIME_OUT = 30*1000;
 

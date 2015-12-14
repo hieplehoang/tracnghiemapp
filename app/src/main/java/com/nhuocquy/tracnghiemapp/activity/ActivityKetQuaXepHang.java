@@ -14,6 +14,7 @@ import com.nhuocquy.tracnghiemapp.adapter.LVAdapterDauBang;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
+import com.nhuocquy.tracnghiemapp.model.Account;
 import com.nhuocquy.tracnghiemapp.model.DauBang;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
 import com.nhuocquy.tracnghiemapp.model.XepHangMonHoc;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class ActivityKetQuaXepHang extends AppCompatActivity {
     MonHoc monHoc;
+    Account acc;
     XepHangMonHoc xepHangMonHoc;
     List<DauBang> list;
     ListView listView;
@@ -37,24 +39,13 @@ public class ActivityKetQuaXepHang extends AppCompatActivity {
         setContentView(R.layout.activity_ket_qua_xep_hang);
 
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
-        long idAcc = (long) MyVar.getAttribute(MyConstant.ID_ACCOUNT);
+        acc = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
         listView = (ListView) findViewById(R.id.lvDauBang);
-
-        // tao co so du lieu tam
-//        list = new ArrayList<>();
-//        list.add(new DauBang());
-//        list.add(new DauBang());
-//        list.add(new DauBang());
-//        list.add(new DauBang());
-//        list.add(new DauBang());
-//        list.add(new DauBang());
-//        list.add(new DauBang());
-//        list.add(new DauBang());
 
         new AsyncTask<Long, Void, XepHangMonHoc>() {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityKetQuaXepHang.this, ActivityKetQuaXepHang.this.getResources().getString(R.string.wait), ActivityKetQuaXepHang.this.getResources().getString(R.string.conecting), true);
             RestTemplate rest;
-
+            XepHangMonHoc xepHangMonHoc;
             @Override
             protected void onPreExecute() {
                 rest = new RestTemplate();
@@ -66,7 +57,10 @@ public class ActivityKetQuaXepHang extends AppCompatActivity {
             @Override
             protected XepHangMonHoc doInBackground(Long... params) {
                 try {
-                    XepHangMonHoc xepHangMonHoc = rest.getForObject(String.format(URL.DANHSACH_XEPHANG, URL.IP,params[0],params[1],params[2]), XepHangMonHoc.class);
+                    if(params[0] != -1)
+                     xepHangMonHoc = rest.getForObject(String.format(URL.XEPHANG_ACC, URL.IP,params[0],params[1],params[2]), XepHangMonHoc.class);
+                    else
+                        xepHangMonHoc = rest.getForObject(String.format(URL.XEPHANG, URL.IP,params[1],params[2]), XepHangMonHoc.class);
                     return xepHangMonHoc;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -84,7 +78,7 @@ public class ActivityKetQuaXepHang extends AppCompatActivity {
                     Toast.makeText(ActivityKetQuaXepHang.this, "ok!", Toast.LENGTH_LONG).show();
                 }
             }
-        }.execute(idAcc,monHoc.getId(),(long)monHoc.getDoKho());
+        }.execute(acc != null ? acc.getId() : -1,monHoc.getId(),(long)monHoc.getDoKho());
 
         xepHangMonHoc =(XepHangMonHoc) MyVar.getAttribute(MyConstant.XEP_HANG_MON_HOC);
         list = xepHangMonHoc.getDsDauBang();
