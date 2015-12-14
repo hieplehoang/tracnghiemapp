@@ -53,4 +53,8 @@ public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
         tvDoKho.setText("Khó " + position);
         return view;
     }
+
+    public void setList(List<XepHangMonHoc> list) {
+        this.list = list;
+    }
 }

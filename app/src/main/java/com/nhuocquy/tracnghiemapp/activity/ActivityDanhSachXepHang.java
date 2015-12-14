@@ -1,7 +1,6 @@
 package com.nhuocquy.tracnghiemapp.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +21,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,7 +52,7 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             @Override
             protected List<XepHangMonHoc> doInBackground(Long... params) {
                 try {
-                    XepHangMonHoc[] xepHangMonHoc = rest.getForObject(String.format(URL.XEPHANG, URL.IP,params[1],params[2]), XepHangMonHoc[].class);
+                    XepHangMonHoc[] xepHangMonHoc = rest.getForObject(String.format(URL.LIST_XE_PHANG, URL.IP,params[0]), XepHangMonHoc[].class);
                     return Arrays.asList(xepHangMonHoc);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -66,19 +64,20 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             protected void onPostExecute(List<XepHangMonHoc> xepHangMonHoc) {
                 ringProgressDialog.dismiss();
                 if (xepHangMonHoc == null) {
-                    Toast.makeText(ActivityDanhSachXepHang.this, "Không thể kết nối máy chủ! Không thể tai dử liệu nền!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityDanhSachXepHang.this, "Không thể kết nối máy chủ!", Toast.LENGTH_LONG).show();
                 } else {
-                    MyVar.setAttribute(MyConstant.LIST_XEP_HANG_MON_HOC, xepHangMonHoc);
+//                    MyVar.setAttribute(MyConstant.LIST_XEP_HANG_MON_HOC, xepHangMonHoc);
+                    lvAdapterXepHang.setList(xepHangMonHoc);
+                    lvAdapterXepHang.notifyDataSetChanged();
                     Toast.makeText(ActivityDanhSachXepHang.this, "ok!", Toast.LENGTH_LONG).show();
+
                 }
             }
         };
 
             async.execute(account.getId());
 
-            list = (List<XepHangMonHoc>) MyVar.getAttribute(MyConstant.LIST_XEP_HANG_MON_HOC);
-
-            lvAdapterXepHang = new LVAdapterXepHang(this, list);
+            lvAdapterXepHang = new LVAdapterXepHang(this);
             dsXepHang.setAdapter(lvAdapterXepHang);
 
 

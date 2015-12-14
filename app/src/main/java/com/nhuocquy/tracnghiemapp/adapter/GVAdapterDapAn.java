@@ -67,7 +67,6 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
             @Override
             public void onClick(View v) {
                 dapAn.setSelected(checkBox.isChecked());
-                Log.e("Adapter...", dapAn.toString());
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +74,6 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, ActivityPhotoView.class);
                 mContext.startActivity(intent);
-                Log.e("ActivityDeThi", "lỗi itemimage click");
             }
         });
         return convertView;

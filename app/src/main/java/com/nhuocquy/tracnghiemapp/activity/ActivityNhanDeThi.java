@@ -14,14 +14,14 @@ import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
 
-public class ActivityKetQuaSubmit extends AppCompatActivity {
+public class ActivityNhanDeThi extends AppCompatActivity {
     MonHoc monHoc;
     Button btnLamBai, btnThoat;
     TextView tvTenMonHoc, tvThoiGian, tvSlCauHoi, tvDoKho;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ket_qua_submit);
+        setContentView(R.layout.activity_nhan_de_thi);
 
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
 
@@ -36,12 +36,12 @@ public class ActivityKetQuaSubmit extends AppCompatActivity {
         tvTenMonHoc.setText(monHoc.getTenMonHoc());
         tvThoiGian.setText(monHoc.getThoiGian()+ " phút" );
         tvSlCauHoi.setText(monHoc.getSoLgCauHoi()+ " câu");
-        tvDoKho.setText(monHoc.getDoKho()==1?monHoc.getDoKho()==2?"Khó":"Trung bình":"Dễ");
+        tvDoKho.setText(monHoc.getDoKho()==1?"Dễ":monHoc.getDoKho()==2?"Trung bình":"Khó");
 
         btnLamBai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityKetQuaSubmit.this, ActivityDeThi.class);
+                Intent intent = new Intent(ActivityNhanDeThi.this, ActivityLamBai.class);
                 startActivity(intent);
             }
         });
@@ -49,8 +49,7 @@ public class ActivityKetQuaSubmit extends AppCompatActivity {
         btnThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityKetQuaSubmit.this, ActivityChonMonThiThu.class);
-                startActivity(intent);
+               finish();
             }
         });
     }

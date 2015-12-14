@@ -1,11 +1,9 @@
 package com.nhuocquy.tracnghiemapp.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +18,11 @@ import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.adapter.GVAdapterDapAn;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
-import com.nhuocquy.tracnghiemapp.model.DapAn;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
 
 import java.util.concurrent.TimeUnit;
 
-public class ActivityDeThi extends AppCompatActivity {
+public class ActivityLamBai extends AppCompatActivity {
 
     TextView tvCauHoi ;
     ImageView imgCauHoi;
@@ -37,15 +34,15 @@ public class ActivityDeThi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_de_thi2);
+        setContentView(R.layout.activity_lam_bai);
 
         tvCauHoi = (TextView) findViewById(R.id.tvCauHoi);
         imgCauHoi = (ImageView) findViewById(R.id.imgCauHoi);
         imgCauHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityDeThi.this, ActivityPhotoView.class);
-                ActivityDeThi.this.startActivity(intent);
+                Intent intent = new Intent(ActivityLamBai.this, ActivityPhotoView.class);
+                ActivityLamBai.this.startActivity(intent);
             }
         });
 
@@ -68,7 +65,7 @@ public class ActivityDeThi extends AppCompatActivity {
             String format = "%02d:%02d";
             @Override
             public void onTick(long millisUntilFinished) {
-                ActivityDeThi.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                ActivityLamBai.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
@@ -76,7 +73,7 @@ public class ActivityDeThi extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                ActivityDeThi.this.setTitle("Done");
+                ActivityLamBai.this.setTitle("Done");
             }
         }.start();
 
@@ -109,7 +106,7 @@ public class ActivityDeThi extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.mnBtnSubmit:
-                Intent intent = new Intent(this, ActivityKetQua.class);
+                Intent intent = new Intent(this, ActivityKetQuaThi.class);
                 startActivity(intent);
 
                 return true;

@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nhuocquy.tracnghiemapp.R;
@@ -16,36 +18,62 @@ import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.model.Account;
 import com.nhuocquy.tracnghiemapp.model.DauBang;
-import com.nhuocquy.tracnghiemapp.model.MonHoc;
 import com.nhuocquy.tracnghiemapp.model.XepHangMonHoc;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityKetQuaXepHang extends AppCompatActivity {
-    MonHoc monHoc;
+    public static String ID_MOMHOC = "idMonHoc";
+    public static String DO_KHO = "doKho";
     Account acc;
-    XepHangMonHoc xepHangMonHoc;
-    List<DauBang> list;
     ListView listView;
     LVAdapterDauBang lvAdapterDauBang;
+    long idMonHoc;
+    int doKho;
+
+    private TextView tvMonHoc;
+    private TextView tvDoKho;
+    private TextView tvDiemCaoNhat;
+    private TextView tvXepHangMonHoc;
+    private TextView tvViTri;
+
+    private void findViews() {
+        tvMonHoc = (TextView) findViewById(R.id.tvMonHoc);
+        tvDoKho = (TextView) findViewById(R.id.tvDoKho);
+        tvDiemCaoNhat = (TextView) findViewById(R.id.tvDiemCaoNhat);
+        tvXepHangMonHoc = (TextView) findViewById(R.id.tvXepHangMonHocKQXH);
+        tvViTri = (TextView) findViewById(R.id.tvViTri);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_qua_xep_hang);
 
-        monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
+        findViews();
+
+        idMonHoc = getIntent().getLongExtra(ID_MOMHOC, -1);
+        doKho = getIntent().getIntExtra(DO_KHO, -1);
+
+        if (idMonHoc == -1 || doKho == -1)
+            throw new NullPointerException();
+
         acc = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
         listView = (ListView) findViewById(R.id.lvDauBang);
+
+        lvAdapterDauBang = new LVAdapterDauBang(this);
+        listView.setAdapter(lvAdapterDauBang);
+
 
         new AsyncTask<Long, Void, XepHangMonHoc>() {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityKetQuaXepHang.this, ActivityKetQuaXepHang.this.getResources().getString(R.string.wait), ActivityKetQuaXepHang.this.getResources().getString(R.string.conecting), true);
             RestTemplate rest;
-            XepHangMonHoc xepHangMonHoc;
+
             @Override
             protected void onPreExecute() {
                 rest = new RestTemplate();
@@ -56,11 +84,17 @@ public class ActivityKetQuaXepHang extends AppCompatActivity {
 
             @Override
             protected XepHangMonHoc doInBackground(Long... params) {
+                XepHangMonHoc xepHangMonHoc;
+                Log.e("ActivityKetQuaXepHang", String.format("%s/%s/%s", params[0], params[1], params[2]));
                 try {
-                    if(params[0] != -1)
-                     xepHangMonHoc = rest.getForObject(String.format(URL.XEPHANG_ACC, URL.IP,params[0],params[1],params[2]), XepHangMonHoc.class);
-                    else
-                        xepHangMonHoc = rest.getForObject(String.format(URL.XEPHANG, URL.IP,params[1],params[2]), XepHangMonHoc.class);
+                    if (params[0] != -1) {
+                        xepHangMonHoc = rest.getForObject(String.format(URL.XEP_HANG_WITH_LOGIN, URL.IP, params[0], params[1], params[2]), XepHangMonHoc.class);
+                        Log.e("ActivityKetQuaXepHang",String.format(URL.XEP_HANG_WITH_LOGIN, URL.IP, params[0], params[1], params[2]));
+                    }
+                    else {
+                        xepHangMonHoc = rest.getForObject(String.format(URL.XEP_HANG_WITHOUT_LOGIN, URL.IP, params[1], params[2]), XepHangMonHoc.class);
+                        Log.e("ActivityKetQuaXepHang",String.format(URL.XEP_HANG_WITHOUT_LOGIN, URL.IP, params[1], params[2]));
+                    }
                     return xepHangMonHoc;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -73,17 +107,25 @@ public class ActivityKetQuaXepHang extends AppCompatActivity {
                 ringProgressDialog.dismiss();
                 if (xepHangMonHoc == null) {
                     Toast.makeText(ActivityKetQuaXepHang.this, "Không thể kết nối máy chủ! Không thể tai dử liệu nền!", Toast.LENGTH_LONG).show();
+                    tvMonHoc.setText("");
+                    tvDoKho.setText("");
+                    tvDiemCaoNhat.setText("");
+                    tvXepHangMonHoc.setText("");
+                    tvViTri.setText("");
                 } else {
-                    MyVar.setAttribute(MyConstant.XEP_HANG_MON_HOC, xepHangMonHoc);
-                    Toast.makeText(ActivityKetQuaXepHang.this, "ok!", Toast.LENGTH_LONG).show();
+                    lvAdapterDauBang.setList(xepHangMonHoc.getDsDauBang());
+                    lvAdapterDauBang.notifyDataSetChanged();
+
+                    tvMonHoc.setText(xepHangMonHoc.getTenMonHoc());
+                    tvDoKho.setText(xepHangMonHoc.doKho());
+                    tvDiemCaoNhat.setText(String.format("%.1f điểm",xepHangMonHoc.getDiemCaoNhat()));
+                    tvXepHangMonHoc.setText(String.valueOf(xepHangMonHoc.getXepHang()));
+                    tvViTri.setText(String.valueOf(xepHangMonHoc.getViTri()));
                 }
             }
-        }.execute(acc != null ? acc.getId() : -1,monHoc.getId(),(long)monHoc.getDoKho());
+        }.execute(acc != null ? acc.getId() : -1, idMonHoc, (long) doKho);
 
-        xepHangMonHoc =(XepHangMonHoc) MyVar.getAttribute(MyConstant.XEP_HANG_MON_HOC);
-        list = xepHangMonHoc.getDsDauBang();
-        lvAdapterDauBang = new LVAdapterDauBang(this,list);
-        listView.setAdapter(lvAdapterDauBang);
+
     }
 
     @Override
