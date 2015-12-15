@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,10 +41,9 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
         account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
         dsXepHang = (ListView) findViewById(R.id.lvXepHang);
 
-        AsyncTask<Long, Void, List<XepHangMonHoc>> async = new AsyncTask<Long, Void, List<XepHangMonHoc>>() {
+        new AsyncTask<Long, Void, List<XepHangMonHoc>>() {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityDanhSachXepHang.this, ActivityDanhSachXepHang.this.getResources().getString(R.string.wait), ActivityDanhSachXepHang.this.getResources().getString(R.string.conecting), true);
             RestTemplate rest;
-            XepHangMonHoc xepHangMonHoc;
             @Override
             protected void onPreExecute() {
                 rest = new RestTemplate();
@@ -68,21 +69,20 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
                 if (xepHangMonHoc == null) {
                     Toast.makeText(ActivityDanhSachXepHang.this, "Không thể kết nối máy chủ! Không thể tai dử liệu nền!", Toast.LENGTH_LONG).show();
                 } else {
-                    MyVar.setAttribute(MyConstant.LIST_XEP_HANG_MON_HOC, xepHangMonHoc);
+                    list = xepHangMonHoc;
+                    lvAdapterXepHang = new LVAdapterXepHang(ActivityDanhSachXepHang.this, list);
+                    dsXepHang.setAdapter(lvAdapterXepHang);
                     Toast.makeText(ActivityDanhSachXepHang.this, "ok!", Toast.LENGTH_LONG).show();
                 }
             }
-        };
+        }.execute(account.getId());
 
-            async.execute(account.getId());
+        dsXepHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            list = (List<XepHangMonHoc>) MyVar.getAttribute(MyConstant.LIST_XEP_HANG_MON_HOC);
-
-            lvAdapterXepHang = new LVAdapterXepHang(this, list);
-            dsXepHang.setAdapter(lvAdapterXepHang);
-
-
-
+            }
+        });
     }
 
     @Override

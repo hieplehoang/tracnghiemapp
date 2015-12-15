@@ -19,7 +19,7 @@ public class LVAdapterDauBang extends ArrayAdapter<DauBang>{
     private Context mContext;
     List<DauBang> list;
     public LVAdapterDauBang(Context context,List<DauBang> list) {
-        super(context, R.layout.item_xep_hang_mon_hoc);
+        super(context, R.layout.item_dau_bang);
         this.mContext = context;
         this.list = list;
     }

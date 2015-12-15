@@ -21,9 +21,10 @@ import java.util.List;
 public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
     private Context mContext;
     List<XepHangMonHoc> list =new ArrayList<>();
-    public LVAdapterXepHang(Context context) {
+    public LVAdapterXepHang(Context context, List<XepHangMonHoc> list) {
         super(context, R.layout.item_xep_hang_mon_hoc);
         this.mContext = context;
+        this.list = list;
     }
 
     @Override
@@ -47,10 +48,10 @@ public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
         tvViTri = (TextView) view.findViewById(R.id.tvViTriMonHoc);
         tvDoKho = (TextView) view.findViewById(R.id.tvDoKho);
 
-        tvMonHoc.setText("Chuyên đề Java " + position);
-        tvXepHang.setText("5");
-        tvViTri.setText("10");
-        tvDoKho.setText("Khó " + position);
+        tvMonHoc.setText(list.get(position).getTenMonHoc());
+        tvXepHang.setText(list.get(position).getXepHang());
+        tvViTri.setText(list.get(position).getViTri());
+        tvDoKho.setText(list.get(position).getId()+"");
         return view;
     }
 }
