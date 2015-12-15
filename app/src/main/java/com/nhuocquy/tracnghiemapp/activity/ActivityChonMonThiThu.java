@@ -28,7 +28,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -125,7 +124,7 @@ public class ActivityChonMonThiThu extends AppCompatActivity implements View.OnC
                 }else{
                     Toast.makeText(ActivityChonMonThiThu.this, monHoc.getTenMonHoc(), Toast.LENGTH_LONG).show();
                     MyVar.setAttribute(MyConstant.MON_HOC, monHoc);
-                    Intent intent = new Intent(ActivityChonMonThiThu.this, ActivityKetQuaSubmit.class);
+                    Intent intent = new Intent(ActivityChonMonThiThu.this, ActivityNhanDeThi.class);
                     ActivityChonMonThiThu.this.startActivity(intent);
                 }
             }

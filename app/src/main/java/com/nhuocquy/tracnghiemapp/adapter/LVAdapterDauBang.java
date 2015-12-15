@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.model.DauBang;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,11 +18,10 @@ import java.util.List;
  */
 public class LVAdapterDauBang extends ArrayAdapter<DauBang>{
     private Context mContext;
-    List<DauBang> list;
-    public LVAdapterDauBang(Context context,List<DauBang> list) {
-        super(context, R.layout.item_dau_bang);
+    List<DauBang> list = new ArrayList<>();
+    public LVAdapterDauBang(Context context) {
+        super(context, R.layout.item_xep_hang_mon_hoc);
         this.mContext = context;
-        this.list = list;
     }
 
     @Override
@@ -44,9 +44,15 @@ public class LVAdapterDauBang extends ArrayAdapter<DauBang>{
         tvXepHang = (TextView) view.findViewById(R.id.tvXepHang);
         tvDiem = (TextView) view.findViewById(R.id.tvDiem);
 
-        tvMonHoc.setText(list.get(position).getTen());
-        tvDiem.setText(position+3+"");
-        tvXepHang.setText( position+"");
+        DauBang db = list.get(position);
+
+        tvMonHoc.setText(db.getTen());
+        tvDiem.setText(db.getDiem() + "");
+        tvXepHang.setText( db.getXepHang() +"");
         return view;
+    }
+
+    public void setList(List<DauBang> list) {
+        this.list = list;
     }
 }

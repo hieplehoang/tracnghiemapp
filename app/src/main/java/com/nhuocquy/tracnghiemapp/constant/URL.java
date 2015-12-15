@@ -32,9 +32,22 @@ public class URL {
      * 3: doKho
      */
     public static String THITHU = "http://%s:8080/tracnghiem/thithu?idMonHoc=%s&doKho=%s";
-
-    public static String XEPHANG_ACC = "http://%s:8080/tracnghiem/getxephangthithu?idAccount=%s&idMonHoc=%s&doKho=%s";
-    public static String XEPHANG = "http://%s:8080/tracnghiem/getxephangthithu?idMonHoc=%s&doKho=%s";
-
-    public static String LIST_XEPHANG = "http://%s:8080/tracnghiem/listxephangthithu?idAccount=%s";
+    /**XEP_HANG_WITH_LOGIN
+     * 1: IP
+     * 2: idAccount
+     * 3: idMonHoc
+     * 4: doKho
+     */
+    public static String XEP_HANG_WITH_LOGIN = "http://%s:8080/tracnghiem/getxephangthithu?idAccount=%s&idMonHoc=%s&doKho=%s";
+    /**XEP_HANG_WITH_LOGIN
+     * 1: IP
+     * 2: idMonHoc
+     * 3: doKho
+     */
+    public static String XEP_HANG_WITHOUT_LOGIN = "http://%s:8080/tracnghiem/getxephangthithu?idMonHoc=%s&doKho=%s";
+    /**LIST_XE_PHANG
+     * 1: IP
+     * 2: idAccount
+     */
+    public static String LIST_XE_PHANG = "http://%s:8080/tracnghiem/listxephangthithu?idAccount=%s";
 }

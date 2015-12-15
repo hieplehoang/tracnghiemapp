@@ -24,7 +24,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
         account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
         dsXepHang = (ListView) findViewById(R.id.lvXepHang);
 
-        new AsyncTask<Long, Void, List<XepHangMonHoc>>() {
+        AsyncTask<Long, Void, List<XepHangMonHoc>> async = new AsyncTask<Long, Void, List<XepHangMonHoc>>() {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityDanhSachXepHang.this, ActivityDanhSachXepHang.this.getResources().getString(R.string.wait), ActivityDanhSachXepHang.this.getResources().getString(R.string.conecting), true);
             RestTemplate rest;
             @Override
@@ -55,7 +54,7 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             @Override
             protected List<XepHangMonHoc> doInBackground(Long... params) {
                 try {
-                    XepHangMonHoc[] xepHangMonHoc = rest.getForObject(String.format(URL.XEPHANG, URL.IP,params[1],params[2]), XepHangMonHoc[].class);
+                    XepHangMonHoc[] xepHangMonHoc = rest.getForObject(String.format(URL.LIST_XE_PHANG, URL.IP,params[0]), XepHangMonHoc[].class);
                     return Arrays.asList(xepHangMonHoc);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -67,22 +66,29 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             protected void onPostExecute(List<XepHangMonHoc> xepHangMonHoc) {
                 ringProgressDialog.dismiss();
                 if (xepHangMonHoc == null) {
-                    Toast.makeText(ActivityDanhSachXepHang.this, "Không thể kết nối máy chủ! Không thể tai dử liệu nền!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityDanhSachXepHang.this, "Không thể kết nối máy chủ!", Toast.LENGTH_LONG).show();
                 } else {
-                    list = xepHangMonHoc;
-                    lvAdapterXepHang = new LVAdapterXepHang(ActivityDanhSachXepHang.this, list);
-                    dsXepHang.setAdapter(lvAdapterXepHang);
+                    MyVar.setAttribute(MyConstant.LIST_XEP_HANG_MON_HOC, xepHangMonHoc);
+                    lvAdapterXepHang.setList(xepHangMonHoc);
+                    lvAdapterXepHang.notifyDataSetChanged();
                     Toast.makeText(ActivityDanhSachXepHang.this, "ok!", Toast.LENGTH_LONG).show();
+                    list =xepHangMonHoc;
+                    lvAdapterXepHang = new LVAdapterXepHang(ActivityDanhSachXepHang.this,list);
+                    dsXepHang.setAdapter(lvAdapterXepHang);
+
                 }
             }
-        }.execute(account.getId());
-
-        dsXepHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+        };
+            async.execute(account.getId());
+    dsXepHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(ActivityDanhSachXepHang.this, ActivityKetQuaXepHang.class);
+            intent.putExtra(ActivityKetQuaXepHang.ID_MOMHOC,list.get(position).getIdMonHoc());
+            intent.putExtra(ActivityKetQuaXepHang.DO_KHO,list.get(position).getDoKho());
+            startActivity(intent);
+        }
+    });
     }
 
     @Override

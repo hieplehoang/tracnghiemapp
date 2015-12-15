@@ -1,11 +1,12 @@
 package com.nhuocquy.tracnghiemapp.activity;
 
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +21,11 @@ import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.adapter.GVAdapterDapAn;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
-import com.nhuocquy.tracnghiemapp.model.DapAn;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
 
 import java.util.concurrent.TimeUnit;
 
-public class ActivityDeThi extends AppCompatActivity {
+public class ActivityLamBai extends AppCompatActivity {
 
     TextView tvCauHoi ;
     ImageView imgCauHoi;
@@ -37,15 +37,15 @@ public class ActivityDeThi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_de_thi2);
+        setContentView(R.layout.activity_lam_bai);
 
         tvCauHoi = (TextView) findViewById(R.id.tvCauHoi);
         imgCauHoi = (ImageView) findViewById(R.id.imgCauHoi);
         imgCauHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityDeThi.this, ActivityPhotoView.class);
-                ActivityDeThi.this.startActivity(intent);
+                Intent intent = new Intent(ActivityLamBai.this, ActivityPhotoView.class);
+                ActivityLamBai.this.startActivity(intent);
             }
         });
 
@@ -64,19 +64,26 @@ public class ActivityDeThi extends AppCompatActivity {
         });
 
         //
-        CountDownTimer timer = new CountDownTimer(30*1000,1000) {
+        CountDownTimer timer = new CountDownTimer(65*1000,1000) {
             String format = "%02d:%02d";
             @Override
             public void onTick(long millisUntilFinished) {
-                ActivityDeThi.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
-                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                if(millisUntilFinished > 60000) {
+                    ActivityLamBai.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                }else{
+                    ActivityLamBai.this.setTitle(Html.fromHtml("<font color='#ff0000'>" + String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))) +"</font>"));
+                }
             }
 
             @Override
             public void onFinish() {
-                ActivityDeThi.this.setTitle("Done");
+                nopBai();
             }
         }.start();
 
@@ -109,8 +116,21 @@ public class ActivityDeThi extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.mnBtnSubmit:
-                Intent intent = new Intent(this, ActivityKetQua.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Bạn có chắc chắn nộp bài trước khi kết giờ chứ? Nếu nộp bài, bạn không thể quay lại bài làm của bạn được!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                notify();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
 
                 return true;
             case R.id.mnBtnLeft:
@@ -151,5 +171,9 @@ public class ActivityDeThi extends AppCompatActivity {
 //        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 
-
+    public void nopBai(){
+        Intent intent = new Intent(this, ActivityKetQuaThi.class);
+        startActivity(intent);
+        finish();
+    }
 }

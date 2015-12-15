@@ -1,43 +1,27 @@
 package com.nhuocquy.tracnghiemapp.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nhuocquy.tracnghiemapp.R;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
-import com.nhuocquy.tracnghiemapp.constant.URL;
-import com.nhuocquy.tracnghiemapp.dao.UtilDao;
-import com.nhuocquy.tracnghiemapp.model.DauBang;
-import com.nhuocquy.tracnghiemapp.model.Khoa;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
-import com.nhuocquy.tracnghiemapp.model.XepHangMonHoc;
 
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
-
-public class ActivityKetQua extends AppCompatActivity {
+public class ActivityKetQuaThi extends AppCompatActivity {
     MonHoc monHoc;
     Button buttonSubmit, buttonXepHang;
     TextView tvMonHoc, tvDiem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ket_qua);
+        setContentView(R.layout.activity_ket_qua_thi);
 
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         tvMonHoc = (TextView) findViewById(R.id.tvMonHoc);
@@ -59,7 +43,9 @@ public class ActivityKetQua extends AppCompatActivity {
         buttonXepHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityKetQua.this, ActivityKetQuaXepHang.class);
+                Intent intent = new Intent(ActivityKetQuaThi.this, ActivityKetQuaXepHang.class);
+                intent.putExtra(ActivityKetQuaXepHang.ID_MOMHOC, monHoc.getId());
+                intent.putExtra(ActivityKetQuaXepHang.DO_KHO,monHoc.getDoKho());
                 startActivity(intent);
             }
         });

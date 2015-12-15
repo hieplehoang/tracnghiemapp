@@ -31,11 +31,11 @@
             android:name=".activity.ActivityDangKi"
             android:label="@string/title_activity_activity_dang_ki" />
         <activity
-            android:name=".activity.ActivityDeThi"
+            android:name=".activity.ActivityLamBai"
             android:label="@string/title_activity_activity_de_thi"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activity.ActivityKetQua"
+            android:name=".activity.ActivityKetQuaThi"
             android:label="@string/title_activity_activity_ket_qua" />
         <activity
             android:name=".activity.ActivityKetQuaXepHang"
@@ -48,7 +48,7 @@
             android:name=".activity.ActivityDanhSachXepHang"
             android:label="@string/title_activity_activity_danh_sach_xep_hang" />
         <activity
-            android:name=".activity.ActivityKetQuaSubmit"
+            android:name=".activity.ActivityNhanDeThi"
             android:label="@string/title_activity_activity_ket_qua_submit" />
         <activity
             android:name=".activity.photoview.ActivityPhotoView"

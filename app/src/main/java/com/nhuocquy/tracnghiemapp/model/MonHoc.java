@@ -92,7 +92,7 @@ public class MonHoc {
 
 	public double calDiemThi() {
 		double diemThi = 0;
-		double diemTungCau = 0.5;
+		double diemTungCau = 10.0/soLgCauHoi;
 		for (CauHoi cauHoi : dsCauHoi) {
 			diemThi += cauHoi.getDiemThi(diemTungCau);
 		}
