@@ -12,6 +12,12 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.nhuocquy.tracnghiemapp.constant.MyConstant;
+import com.nhuocquy.tracnghiemapp.constant.MyVar;
+import com.nhuocquy.tracnghiemapp.model.CauHoi;
+import com.nhuocquy.tracnghiemapp.model.DapAn;
+import com.nhuocquy.tracnghiemapp.model.MonHoc;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -22,6 +28,7 @@ import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,6 +44,9 @@ public class ServiceThiThu extends Service {
     public static final int MSG_REGISTER_CLIENT = 1;
     public static final int MSG_UNREGISTER_CLIENT = 2;
     public static final int GET_IMAGE = 3;
+    public static final int DELETE_ALL_IMAGE = 4;
+    public static final int GET_ALL_IMAGE = 5;
+    public static final String COMAMND_GET_ALL_IMAGE = "comandGetImage";
     Map<String, Set<Messenger>> mapRegister = new HashMap<>();
 
     class IncomingHandler extends Handler {
@@ -63,7 +73,12 @@ public class ServiceThiThu extends Service {
                     break;
                 case GET_IMAGE:// new asyntask to getImage
                     // register
-                     String fileName3 = (String) msg.obj;
+                    String fileName3 = (String) msg.obj;
+                    final String photoPath = ServiceThiThu.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + fileName3;
+
+                    File file = new File(photoPath);
+
+                    if(!file.exists()) {
                     Log.e("ServiceThiThu", fileName3);
                     Set<Messenger> list3 = mapRegister.get(fileName3);
                     if (list3 == null) {
@@ -80,50 +95,52 @@ public class ServiceThiThu extends Service {
 
                         @Override
                         protected String doInBackground(String... params) {
-                            List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
-                            messageConverters.add(new ByteArrayHttpMessageConverter());
-                            RestTemplate res = new RestTemplate();
-                            res.setMessageConverters(messageConverters);
 
-                            HttpHeaders headers = new HttpHeaders();
-                            headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
 
-                            HttpEntity<String> entity = new HttpEntity<String>(headers);
+                                List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+                                messageConverters.add(new ByteArrayHttpMessageConverter());
+                                RestTemplate res = new RestTemplate();
+                                res.setMessageConverters(messageConverters);
 
-                            ResponseEntity<byte[]> response = res.exchange(
-                                    "http://www2.hcmuaf.edu.vn/data/quoctuan/" +params[0],
-                                    HttpMethod.GET, entity, byte[].class, "1");
+                                HttpHeaders headers = new HttpHeaders();
+                                headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
 
-                            if (response.getStatusCode() == HttpStatus.OK) {
-                                String photoPath = ServiceThiThu.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/" + params[0];
-                                try {
-                                    FileOutputStream fos = new FileOutputStream(photoPath);
-                                    fos.write(response.getBody());
-                                    fos.close();
+                                HttpEntity<String> entity = new HttpEntity<String>(headers);
 
-                                    Log.e("ServiceThiThu Done", params[0]);
+                                ResponseEntity<byte[]> response = res.exchange(
+                                        "http://www2.hcmuaf.edu.vn/data/quoctuan/" + params[0],
+                                        HttpMethod.GET, entity, byte[].class, "1");
 
-                                    Set<Messenger> list = mapRegister.get(params[0]);
-                                    Log.e("ServiceThiThu Done", mapRegister.toString());
-                                    if (list != null) {
-                                        for (Messenger m : list) {
-                                            Message msg = Message.obtain(null,
-                                                    ServiceThiThu.GET_IMAGE);
-                                            msg.obj = params[0];
-                                            try {
-                                                m.send(msg);
-                                                Log.e("ServiceThiThu send", params[0]);
-                                            } catch (RemoteException e) {
-                                                e.printStackTrace();
+                                if (response.getStatusCode() == HttpStatus.OK) {
+                                    try {
+                                        FileOutputStream fos = new FileOutputStream(photoPath);
+                                        fos.write(response.getBody());
+                                        fos.close();
+
+                                        Log.e("ServiceThiThu Done", params[0]);
+
+                                        Set<Messenger> list = mapRegister.get(params[0]);
+                                        Log.e("ServiceThiThu Done", mapRegister.toString());
+                                        if (list != null) {
+                                            for (Messenger m : list) {
+                                                Message msg = Message.obtain(null,
+                                                        ServiceThiThu.GET_IMAGE);
+                                                msg.obj = params[0];
+                                                try {
+                                                    m.send(msg);
+                                                    Log.e("ServiceThiThu send", params[0]);
+                                                } catch (RemoteException e) {
+                                                    e.printStackTrace();
+                                                }
                                             }
                                         }
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
                                 }
-                            }
+
                             return params[0];
                         }
 
@@ -132,6 +149,9 @@ public class ServiceThiThu extends Service {
                             super.onPostExecute(s);
                         }
                     }.execute(fileName3);
+                    }else{
+
+                    }
                     break;
                 default:
                     super.handleMessage(msg);
@@ -152,7 +172,30 @@ public class ServiceThiThu extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent,flags,startId);
+        super.onStartCommand(intent, flags, startId);
+        int command = intent.getIntExtra(COMAMND_GET_ALL_IMAGE, -1);
+        switch (command) {
+            case GET_ALL_IMAGE:
+                MonHoc monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
+                if (monHoc != null) {
+                    List<String> listImage = new ArrayList<>();
+                    for (CauHoi cauHoi : monHoc.getDsCauHoi()) {
+                        listImage.addAll(cauHoi.getDsHinh());
+                        for (DapAn dapAn : cauHoi.getDsDapAn()) {
+                            if (dapAn.getHinh() != null && !dapAn.getHinh().equals(""))
+                                listImage.add(dapAn.getHinh());
+                        }
+                    }
+
+
+
+                }
+                break;
+
+            case DELETE_ALL_IMAGE:
+
+                break;
+        }
         return START_STICKY;
     }
 

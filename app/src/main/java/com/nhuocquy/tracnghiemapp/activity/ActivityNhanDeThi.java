@@ -43,6 +43,7 @@ public class ActivityNhanDeThi extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityNhanDeThi.this, ActivityLamBai.class);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -50,7 +50,6 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
         textView = (TextView) convertView.findViewById(R.id.tvDapAn);
         //
         final DapAn dapAn = listDapAn.get(position);
-        Log.e("Adapter...", dapAn.toString());
         if (dapAn.getHinh() != null && !dapAn.getHinh().equals("")) {
             imageView.setImageResource(R.drawable.code);
             imageView.setVisibility(View.VISIBLE);

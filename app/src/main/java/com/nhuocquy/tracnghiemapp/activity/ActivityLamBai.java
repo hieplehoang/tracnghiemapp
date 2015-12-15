@@ -1,9 +1,12 @@
 package com.nhuocquy.tracnghiemapp.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -61,19 +64,26 @@ public class ActivityLamBai extends AppCompatActivity {
         });
 
         //
-        CountDownTimer timer = new CountDownTimer(30*1000,1000) {
+        CountDownTimer timer = new CountDownTimer(65*1000,1000) {
             String format = "%02d:%02d";
             @Override
             public void onTick(long millisUntilFinished) {
-                ActivityLamBai.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
-                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                if(millisUntilFinished > 60000) {
+                    ActivityLamBai.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                }else{
+                    ActivityLamBai.this.setTitle(Html.fromHtml("<font color='#ff0000'>" + String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))) +"</font>"));
+                }
             }
 
             @Override
             public void onFinish() {
-                ActivityLamBai.this.setTitle("Done");
+                nopBai();
             }
         }.start();
 
@@ -106,8 +116,21 @@ public class ActivityLamBai extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.mnBtnSubmit:
-                Intent intent = new Intent(this, ActivityKetQuaThi.class);
-                startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Bạn có chắc chắn nộp bài trước khi kết giờ chứ? Nếu nộp bài, bạn không thể quay lại bài làm của bạn được!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                notify();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
 
                 return true;
             case R.id.mnBtnLeft:
@@ -148,5 +171,9 @@ public class ActivityLamBai extends AppCompatActivity {
 //        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 
-
+    public void nopBai(){
+        Intent intent = new Intent(this, ActivityKetQuaThi.class);
+        startActivity(intent);
+        finish();
+    }
 }
