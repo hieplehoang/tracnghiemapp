@@ -21,9 +21,10 @@ import java.util.List;
 public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
     private Context mContext;
     List<XepHangMonHoc> list =new ArrayList<>();
-    public LVAdapterXepHang(Context context) {
+    public LVAdapterXepHang(Context context, List<XepHangMonHoc> list) {
         super(context, R.layout.item_xep_hang_mon_hoc);
         this.mContext = context;
+        this.list = list;
     }
 
     @Override
