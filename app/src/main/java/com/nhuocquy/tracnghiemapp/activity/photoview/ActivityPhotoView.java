@@ -39,6 +39,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class ActivityPhotoView extends AppCompatActivity {
 
     private static final String ISLOCKED_ARG = "isLocked";
+    public static final String LIST_IMAGE = "listImage";
 
     private ViewPager mViewPager;
     SamplePagerAdapter adapter;
@@ -73,11 +74,16 @@ public class ActivityPhotoView extends AppCompatActivity {
         mViewPager = (HackyViewPager) findViewById(R.id.view_pager);
         setContentView(mViewPager);
 
-        List<String> listFile = new ArrayList<>();
-        listFile.add("0763742627.jpg");
-        listFile.add("17_earth_song.jpg");
-        listFile.add("514E0SN8Z2L.jpg");
-        listFile.add("Hanoi.jpg");
+//        List<String> listFile = new ArrayList<>();
+//        listFile.add("0763742627.jpg");
+//        listFile.add("17_earth_song.jpg");
+//        listFile.add("514E0SN8Z2L.jpg");
+//        listFile.add("Hanoi.jpg");
+        List<String> listFile = (List<String>) getIntent().getSerializableExtra(LIST_IMAGE);
+        if(listFile == null){
+            listFile = new ArrayList<>();
+        }
+        Log.e("ActivityPhotoView", listFile.toString());
         adapter= new SamplePagerAdapter(this, listFile);
         mViewPager.setAdapter(adapter);
 

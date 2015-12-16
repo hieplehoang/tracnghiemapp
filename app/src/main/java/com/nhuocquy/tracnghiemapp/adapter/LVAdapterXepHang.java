@@ -35,7 +35,7 @@ public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        TextView tvMonHoc, tvXepHang, tvViTri,tvDoKho;
+        TextView tvMonHoc, tvXepHang, tvDiem,tvDoKho;
         if(convertView==null){
             view = new View(mContext);
             view = inflater.inflate(R.layout.item_xep_hang_mon_hoc, null);
@@ -44,17 +44,20 @@ public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
         }
         tvMonHoc = (TextView) view.findViewById(R.id.tvTenMonHoc);
         tvXepHang = (TextView) view.findViewById(R.id.tvXepHangMonHoc);
-        tvViTri = (TextView) view.findViewById(R.id.tvViTriMonHoc);
+        tvDiem = (TextView) view.findViewById(R.id.tvDiem);
         tvDoKho = (TextView) view.findViewById(R.id.tvDoKho);
 
-        tvMonHoc.setText("Chuyên đề Java " + position);
-        tvXepHang.setText("5");
-        tvViTri.setText("10");
-        tvDoKho.setText("Khó " + position);
+        tvMonHoc.setText(list.get(position).getTenMonHoc());
+        tvXepHang.setText(list.get(position).getXepHang() + "");
+        tvDiem.setText(list.get(position).getDiemCaoNhat() + "");
+        tvDoKho.setText(list.get(position).doKho());
         return view;
     }
 
     public void setList(List<XepHangMonHoc> list) {
         this.list = list;
+    }
+    public XepHangMonHoc getXepHang(int pos){
+        return list.get(pos);
     }
 }

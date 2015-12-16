@@ -70,7 +70,17 @@ public class CauHoi {
 			slgDung = slgDung + (dapAn.isLaDADung() ? 1 : 0); 
 			slgChon = slgChon + (dapAn.isSelected() ? 1 : 0);
 		}
-		slgChon = diem * (slgChon/slgDung);
+		if(slgChon != slgDung){
+			slgChon = 0;
+		}else{
+			slgChon = 0;
+			slgDung = 0;
+			for(DapAn dapAn: dsDapAn){
+				slgChon += dapAn.isLaDADung() && dapAn.isSelected() ? 1: 0;
+				slgDung += dapAn.isLaDADung() ? 1: 0;
+			}
+			slgChon = slgChon/slgDung * diem;
+		}
 		return slgChon;
 	}
 }

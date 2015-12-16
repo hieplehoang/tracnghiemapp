@@ -36,7 +36,7 @@
                 android:id="@+id/tvXepHangMonHocDSXH"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Xếp hạng"
+                android:text="Độ khó"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />
@@ -44,7 +44,7 @@
                 android:id="@+id/tvViTriMonHoc"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="Vị trí"
+                android:text="Điểm"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />
@@ -52,7 +52,7 @@
                 android:id="@+id/tvDoKho"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Độ khó"
+                android:text="Xếp hạng"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />

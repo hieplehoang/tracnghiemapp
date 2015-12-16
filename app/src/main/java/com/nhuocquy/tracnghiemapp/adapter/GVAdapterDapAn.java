@@ -18,6 +18,8 @@ import com.nhuocquy.tracnghiemapp.activity.ActivityHinhDapAn;
 import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.model.DapAn;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,6 +55,16 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
         if (dapAn.getHinh() != null && !dapAn.getHinh().equals("")) {
             imageView.setImageResource(R.drawable.code);
             imageView.setVisibility(View.VISIBLE);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, ActivityPhotoView.class);
+                    List<String> list = new ArrayList<String>();
+                    list.add(dapAn.getHinh());
+                    intent.putExtra(ActivityPhotoView.LIST_IMAGE, (Serializable) list);
+                    mContext.startActivity(intent);
+                }
+            });
         } else {
             imageView.setVisibility(View.INVISIBLE);
         }
@@ -68,13 +80,7 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
                 dapAn.setSelected(checkBox.isChecked());
             }
         });
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, ActivityPhotoView.class);
-                mContext.startActivity(intent);
-            }
-        });
+
         return convertView;
     }
 

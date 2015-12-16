@@ -1,11 +1,14 @@
 package com.nhuocquy.tracnghiemapp.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -69,7 +72,7 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
 //                    MyVar.setAttribute(MyConstant.LIST_XEP_HANG_MON_HOC, xepHangMonHoc);
                     lvAdapterXepHang.setList(xepHangMonHoc);
                     lvAdapterXepHang.notifyDataSetChanged();
-                    Toast.makeText(ActivityDanhSachXepHang.this, "ok!", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(ActivityDanhSachXepHang.this, "ok!", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -80,7 +83,15 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             lvAdapterXepHang = new LVAdapterXepHang(this);
             dsXepHang.setAdapter(lvAdapterXepHang);
 
-
+            dsXepHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(ActivityDanhSachXepHang.this, ActivityKetQuaXepHang.class);
+                    intent.putExtra(ActivityKetQuaXepHang.ID_MOMHOC, lvAdapterXepHang.getXepHang(position).getIdMonHoc());
+                    intent.putExtra(ActivityKetQuaXepHang.DO_KHO, lvAdapterXepHang.getXepHang(position).getDoKho());
+                    startActivity(intent);
+                }
+            });
 
     }
 

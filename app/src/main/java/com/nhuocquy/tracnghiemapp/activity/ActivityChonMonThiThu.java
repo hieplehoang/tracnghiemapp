@@ -23,6 +23,7 @@ import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.dao.UtilDao;
 import com.nhuocquy.tracnghiemapp.model.Khoa;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
+import com.nhuocquy.tracnghiemapp.service.ServiceThiThu;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -126,6 +127,10 @@ public class ActivityChonMonThiThu extends AppCompatActivity implements View.OnC
                     MyVar.setAttribute(MyConstant.MON_HOC, monHoc);
                     Intent intent = new Intent(ActivityChonMonThiThu.this, ActivityNhanDeThi.class);
                     ActivityChonMonThiThu.this.startActivity(intent);
+
+                    Intent intent2 = new Intent(ActivityChonMonThiThu.this, ServiceThiThu.class);
+                    intent2.putExtra(ServiceThiThu.COMAMND_GET_ALL_IMAGE,ServiceThiThu.GET_ALL_IMAGE);
+                    startService(intent2);
                 }
             }
         }.execute(listKhoa.get(khoaPos).getDsNganh().get(nganhPos).getDsMonHoc().get(monHocPos).getId(), (long) doKho);

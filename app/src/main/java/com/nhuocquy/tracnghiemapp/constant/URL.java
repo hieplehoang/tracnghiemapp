@@ -5,7 +5,7 @@ package com.nhuocquy.tracnghiemapp.constant;
  */
 public class URL {
 
-    public static String IP = "192.168.117.191";
+    public static String IP = "192.168.56.1";
     /**LOGIN_IDACCOUNT
      * 1: IP
      * 2: idAccount
@@ -50,4 +50,10 @@ public class URL {
      * 2: idAccount
      */
     public static String LIST_XE_PHANG = "http://%s:8080/tracnghiem/listxephangthithu?idAccount=%s";
+    /**SUMMIT_DIEM_THITHU
+     * 1: IP
+     */
+    public static String SUMMIT_DIEM_THITHU = "http://%s:8080/tracnghiem/luudiemthithu";
+
+    public static String GET_IMAGE = "http://www2.hcmuaf.edu.vn/data/quoctuan/";
 }

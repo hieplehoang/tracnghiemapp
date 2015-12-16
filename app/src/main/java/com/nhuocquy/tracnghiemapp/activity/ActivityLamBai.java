@@ -23,6 +23,7 @@ import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
 
+import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityLamBai extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class ActivityLamBai extends AppCompatActivity {
     GridView gridView;
     MonHoc monHoc;
     int cauHoiPos = 0;
+    CountDownTimer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
@@ -45,6 +47,7 @@ public class ActivityLamBai extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityLamBai.this, ActivityPhotoView.class);
+                intent.putExtra(ActivityPhotoView.LIST_IMAGE, (Serializable) monHoc.getDsCauHoi().get(cauHoiPos).getDsHinh());
                 ActivityLamBai.this.startActivity(intent);
             }
         });
@@ -64,7 +67,7 @@ public class ActivityLamBai extends AppCompatActivity {
         });
 
         //
-        CountDownTimer timer = new CountDownTimer(65*1000,1000) {
+         timer = new CountDownTimer(65*1000,1000) {
             String format = "%02d:%02d";
             @Override
             public void onTick(long millisUntilFinished) {
@@ -121,7 +124,7 @@ public class ActivityLamBai extends AppCompatActivity {
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                notify();
+                                nopBai();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -172,6 +175,7 @@ public class ActivityLamBai extends AppCompatActivity {
     }
 
     public void nopBai(){
+        timer.cancel();
         Intent intent = new Intent(this, ActivityKetQuaThi.class);
         startActivity(intent);
         finish();
