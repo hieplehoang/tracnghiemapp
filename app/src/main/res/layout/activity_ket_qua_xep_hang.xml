@@ -122,9 +122,9 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/tvTenDauBang"
-                android:layout_width="180dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:text="Họ tên"
+                android:text="@string/ho_ten"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:layout_marginBottom="10dp" />
@@ -132,15 +132,15 @@
                 android:id="@+id/tvDiem"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Điểm"
+                android:text="@string/diem"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:paddingLeft="40dp"
                 android:layout_marginBottom="10dp" />
             <TextView
-                android:layout_width="80dp"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Xếp hạng"
+                android:text="@string/dsxh_xephang"
                 android:textStyle="bold"
                 android:textSize="18dp"
                 android:layout_marginBottom="10dp" />

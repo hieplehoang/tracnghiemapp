@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Mã số sinh viên   " />
+                android:text="@string/dki_mssv" />
 
             <EditText
                 android:id="@+id/edtMSSV"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Mật khẩu              " />
+                android:text="@string/dki_matkhau" />
 
             <EditText
                 android:id="@+id/edtPass"
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Nhập lại mật khẩu" />
+                android:text="@string/dki_re_matkhau" />
 
             <EditText
                 android:id="@+id/edtRepass"
@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Tên hiển thị          " />
+                android:text="@string/dki_ten" />
 
             <EditText
                 android:id="@+id/edtName"
@@ -121,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Lớp         " />
+                android:text="@string/dki_lop" />
 
             <EditText
                 android:id="@+id/edtClass"
@@ -143,7 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
-                android:text="Ngày sinh             " />
+                android:text="@string/dki_ngaysinh" />
 
             <TextView
                 android:id="@+id/tvBirthDay"
@@ -171,7 +171,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:textSize="16dp"
-            android:text="Khoa" />
+            android:text="@string/khoa" />
 
         <Spinner
             android:id="@+id/spinKhoa"
@@ -194,7 +194,7 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:textSize="16dp"
-            android:text="Ngành" />
+            android:text="@string/nganh" />
 
         <Spinner
             android:id="@+id/spinNganh"
@@ -216,7 +216,7 @@
         <Button
             android:layout_width="312dp"
             android:layout_height="wrap_content"
-            android:text="Đăng kí"
+            android:text="@string/main_dang_ki"
             android:id="@+id/btnSignUp"
             android:layout_row="1"
             android:layout_column="0"
