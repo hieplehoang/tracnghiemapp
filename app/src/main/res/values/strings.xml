@@ -10,16 +10,34 @@
     <string name="main_dang_xuat">Đăng xuất</string>
     <string name="main_dang_ki">Đăng Kí</string>
 
+    <string name="submit">Submit</string>
+
+    <string name="dki_mssv">Mã số sinh viên: </string>
+    <string name="dki_matkhau">Mật khẩu: </string>
+    <string name="dki_re_matkhau">Nhập lại mật khẩu: </string>
+    <string name="dki_ten">Tên hiển thị: </string>
+    <string name="dki_lop">Lớp: </string>
+    <string name="dki_ngaysinh">Ngày sinh: </string>
+
     <string name="thi_thu_khoa">Chọn Khoa</string>
     <string name="thi_thu_nganh">Chọn Ngành</string>
     <string name="thi_thu_mon">Chọn Môn</string>
     <string name="thi_do_kho">Chọn độ khó</string>
+
     <string name="dang_nhap">Đăng nhập</string>
     <string name="dang_nhap_quen_mk">Quên mật khẩu?</string>
-
     <string name="dang_nhap_ten">Tên đăng nhập</string>
     <string name="dang_nhap_mat_khau">Mật khẩu</string>
     <string name="dang_nhap_luu">Lưu đăng nhập</string>
+
+    <string name="dsxh_ten_mh">Tên môn học</string>
+    <string name="dsxh_dokho">Độ khó</string>
+    <string name="dsxh_xephang">Xếp hạng</string>
+
+    <string name="xep_hang_mh">Xếp hạng môn học</string>
+    <string name="ho_ten">Họ tên</string>
+    <string name="batdaulambai">Bắt đầu làm bài</string>
+    <string name="thoat">Thoát</string>
 
     <string name="danh_sach_xep_hang">Danh sách xếp hạng</string>
     <string name="mon_hoc">Môn học:</string>

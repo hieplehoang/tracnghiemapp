@@ -28,7 +28,7 @@
                 android:id="@+id/tvTenMonHoc"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="Tên môn học"
+                android:text="@string/dsxh_ten_mh"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />
@@ -36,7 +36,7 @@
                 android:id="@+id/tvXepHangMonHocDSXH"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Độ khó"
+                android:text="@string/dsxh_dokho"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />
@@ -44,7 +44,7 @@
                 android:id="@+id/tvViTriMonHoc"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
-                android:text="Điểm"
+                android:text="@string/diem"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />
@@ -52,7 +52,7 @@
                 android:id="@+id/tvDoKho"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Xếp hạng"
+                android:text="@string/dsxh_xephang"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="10dp" />

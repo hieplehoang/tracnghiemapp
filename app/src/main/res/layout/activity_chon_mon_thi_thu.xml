@@ -91,6 +91,6 @@
         android:layout_marginBottom="20dp"
         android:textColor="#ffffff"
         android:background="@drawable/shape_effects"
-        android:text="Submit" />
+        android:text="@string/submit" />
 
 </LinearLayout>
