@@ -49,7 +49,7 @@ public class URL {
      * 1: IP
      * 2: idAccount
      */
-    public static String LIST_XE_PHANG = "http://%s:8080/tracnghiem/listxephangthithu?idAccount=%s";
+    public static String LIST_XEP_PHANG = "http://%s:8080/tracnghiem/listxephangthithu?idAccount=%s";
     /**SUMMIT_DIEM_THITHU
      * 1: IP
      */

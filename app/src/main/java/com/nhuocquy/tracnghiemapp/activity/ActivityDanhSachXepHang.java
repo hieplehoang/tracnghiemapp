@@ -30,7 +30,7 @@ import java.util.List;
 public class ActivityDanhSachXepHang extends AppCompatActivity {
     List<XepHangMonHoc> list;
     Account account;
-    ListView dsXepHang;
+    ListView lvDsXepHang;
     LVAdapterXepHang lvAdapterXepHang;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
         setContentView(R.layout.activity_danh_sach_xep_hang);
 
         account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
-        dsXepHang = (ListView) findViewById(R.id.lvXepHang);
+        lvDsXepHang = (ListView) findViewById(R.id.lvXepHang);
 
         AsyncTask<Long, Void, List<XepHangMonHoc>> async = new AsyncTask<Long, Void, List<XepHangMonHoc>>() {
             final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityDanhSachXepHang.this, ActivityDanhSachXepHang.this.getResources().getString(R.string.wait), ActivityDanhSachXepHang.this.getResources().getString(R.string.conecting), true);
@@ -55,7 +55,7 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             @Override
             protected List<XepHangMonHoc> doInBackground(Long... params) {
                 try {
-                    XepHangMonHoc[] xepHangMonHoc = rest.getForObject(String.format(URL.LIST_XE_PHANG, URL.IP,params[0]), XepHangMonHoc[].class);
+                    XepHangMonHoc[] xepHangMonHoc = rest.getForObject(String.format(URL.LIST_XEP_PHANG, URL.IP,params[0]), XepHangMonHoc[].class);
                     return Arrays.asList(xepHangMonHoc);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -81,9 +81,9 @@ public class ActivityDanhSachXepHang extends AppCompatActivity {
             async.execute(account.getId());
 
             lvAdapterXepHang = new LVAdapterXepHang(this);
-            dsXepHang.setAdapter(lvAdapterXepHang);
+            lvDsXepHang.setAdapter(lvAdapterXepHang);
 
-            dsXepHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            lvDsXepHang.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(ActivityDanhSachXepHang.this, ActivityKetQuaXepHang.class);
