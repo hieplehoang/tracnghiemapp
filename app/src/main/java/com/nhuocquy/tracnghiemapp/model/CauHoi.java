@@ -13,6 +13,7 @@ public class CauHoi {
 	private String giaiThich;
 	private List<DapAn> dsDapAn  = new ArrayList<>();
 	private int doKho;
+	private boolean display;
 	public CauHoi() {
 	}
 	public long getId() {
@@ -52,8 +53,15 @@ public class CauHoi {
 	public void setDoKho(int doKho) {
 		this.doKho = doKho;
 	}
-		
-	
+
+	public boolean isDisplay() {
+		return display;
+	}
+
+	public void setDisplay(boolean display) {
+		this.display = display;
+	}
+
 	@Override
 	public String toString() {
 		return "CauHoi [id=" + id + ", noiDung=" + noiDung + ", dsHinh=" + dsHinh + ", giaiThich=" + giaiThich

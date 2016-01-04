@@ -61,7 +61,7 @@ public class ActivityKetQuaThi extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Account account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
+               /* final Account account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
 
                 if(account == null){
                     AlertDialog.Builder builder = new AlertDialog.Builder(ActivityKetQuaThi.this);
@@ -131,7 +131,10 @@ public class ActivityKetQuaThi extends AppCompatActivity {
                     }
 
                     ;
-                }.execute();
+                }.execute();*/
+                Intent intent = new Intent(ActivityKetQuaThi.this, ActivityLamBai.class);
+                intent.putExtra(ActivityLamBai.IS_SHOW_ANSWER, true);
+                ActivityKetQuaThi.this.startActivity(intent);
             }
         });
 

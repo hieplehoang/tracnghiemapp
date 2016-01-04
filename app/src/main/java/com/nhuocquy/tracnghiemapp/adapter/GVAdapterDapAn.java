@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nhuocquy.tracnghiemapp.R;
@@ -28,10 +29,12 @@ import java.util.List;
 public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
     private Context mContext;
     private List<DapAn> listDapAn;
+    private boolean isShowAnswer;
 
-    public GVAdapterDapAn(Context context) {
+    public GVAdapterDapAn(Context context, boolean isShowAnswer) {
         super(context, R.layout.item_dap_an);
         this.mContext = context;
+        this.isShowAnswer = isShowAnswer;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
         ImageView imageView;
         TextView textView;
         if (convertView == null) {
-            convertView =((Activity) mContext).getLayoutInflater().inflate(R.layout.item_dap_an, null);
+            convertView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.item_dap_an, null);
         }
         checkBox = (CheckBox) convertView.findViewById(R.id.ckboxDapAn);
         imageView = (ImageView) convertView.findViewById(R.id.imvHinhDapAn);
@@ -73,13 +76,24 @@ public class GVAdapterDapAn extends ArrayAdapter<DapAn> {
 //        checkBox.setText(convert(dapAn.getThuTu()));
         checkBox.setText(convert(position));
         checkBox.setChecked(dapAn.isSelected());
-
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dapAn.setSelected(checkBox.isChecked());
-            }
-        });
+        // bo sung
+        LinearLayout lnDapAn = (LinearLayout) convertView.findViewById(R.id.lnDapAn);
+        if (!isShowAnswer) {
+            lnDapAn.setBackgroundResource(R.drawable.botron);
+            checkBox.setEnabled(true);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dapAn.setSelected(checkBox.isChecked());
+                }
+            });
+        } else {
+            checkBox.setEnabled(false);
+            if (dapAn.isLaDADung())
+                lnDapAn.setBackgroundResource(R.drawable.botron_true);
+            else
+                lnDapAn.setBackgroundResource(R.drawable.botron);
+        }
 
         return convertView;
     }

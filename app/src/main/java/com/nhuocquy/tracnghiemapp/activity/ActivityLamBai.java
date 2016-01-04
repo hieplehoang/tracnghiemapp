@@ -27,21 +27,24 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityLamBai extends AppCompatActivity {
-
-    TextView tvCauHoi ;
+    public static String IS_SHOW_ANSWER = "isShowAnswer";
+    boolean isShowAnswer = false;
+    TextView tvCauHoi, tvGiaiThich;
     ImageView imgCauHoi;
     GVAdapterDapAn gridViewAdapter;
     GridView gridView;
     MonHoc monHoc;
     int cauHoiPos = 0;
     CountDownTimer timer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lam_bai);
-
+        isShowAnswer = getIntent().getBooleanExtra(IS_SHOW_ANSWER, false);
         tvCauHoi = (TextView) findViewById(R.id.tvCauHoi);
+        tvGiaiThich = (TextView) findViewById(R.id.tvGiaiThich);
         imgCauHoi = (ImageView) findViewById(R.id.imgCauHoi);
         imgCauHoi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +57,7 @@ public class ActivityLamBai extends AppCompatActivity {
 
         gridView = (GridView) findViewById(R.id.gvCauhoi);
 
-        gridViewAdapter = new GVAdapterDapAn(this);
+        gridViewAdapter = new GVAdapterDapAn(this, isShowAnswer);
         gridView.setAdapter(gridViewAdapter);
 
 
@@ -67,40 +70,49 @@ public class ActivityLamBai extends AppCompatActivity {
         });
 
         //
-         timer = new CountDownTimer(65*1000,1000) {
-            String format = "%02d:%02d";
-            @Override
-            public void onTick(long millisUntilFinished) {
-                if(millisUntilFinished > 60000) {
-                    ActivityLamBai.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
-                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
-                }else{
-                    ActivityLamBai.this.setTitle(Html.fromHtml("<font color='#ff0000'>" + String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
-                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))) +"</font>"));
+        if (!isShowAnswer)
+            timer = new CountDownTimer(monHoc.getThoiGian() * 60 * 1000, 1000) {
+                String format = "%02d:%02d";
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    if (millisUntilFinished > 60000) {
+                        ActivityLamBai.this.setTitle(String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                    } else {
+                        ActivityLamBai.this.setTitle(Html.fromHtml("<font color='#ff0000'>" + String.format(format, TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                        TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                                TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))) + "</font>"));
+                    }
                 }
-            }
 
-            @Override
-            public void onFinish() {
-                nopBai();
-            }
-        }.start();
-
+                @Override
+                public void onFinish() {
+                    nopBai();
+                }
+            }.start();
+        else
+            ActivityLamBai.this.setTitle("Xem đáp án");
         setUpView();
     }
 
-    public void setUpView(){
-        tvCauHoi.setText(String.format("Câu %s: %s", cauHoiPos+1, monHoc.getDsCauHoi().get(cauHoiPos).getNoiDung()));
+    public void setUpView() {
+        tvCauHoi.setText(String.format("Câu %s: %s", cauHoiPos + 1, monHoc.getDsCauHoi().get(cauHoiPos).getNoiDung()));
 
         gridViewAdapter.setListDapAn(monHoc.getDsCauHoi().get(cauHoiPos).getDsDapAn());
         gridViewAdapter.notifyDataSetChanged();
         getListViewSize(gridView);
 
         imgCauHoi.setVisibility(monHoc.getDsCauHoi().get(cauHoiPos).getDsHinh().isEmpty() ? View.INVISIBLE : View.VISIBLE);
+        if (isShowAnswer) {
+            tvGiaiThich.setVisibility(View.VISIBLE);
+            tvGiaiThich.setText(monHoc.getDsCauHoi().get(cauHoiPos).getGiaiThich());
+        } else {
+            tvGiaiThich.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -137,22 +149,23 @@ public class ActivityLamBai extends AppCompatActivity {
 
                 return true;
             case R.id.mnBtnLeft:
-                if(cauHoiPos > 0){
+                if (cauHoiPos > 0) {
                     cauHoiPos--;
                     setUpView();
                 }
                 return true;
             case R.id.mnBtnRight:
-                    if(cauHoiPos < monHoc.getDsCauHoi().size() -1) {
-                        cauHoiPos++;
-                        setUpView();
-                    }
+                if (cauHoiPos < monHoc.getDsCauHoi().size() - 1) {
+                    cauHoiPos++;
+                    setUpView();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
     }
+
     public static void getListViewSize(GridView myListView) {
         GVAdapterDapAn myListAdapter = (GVAdapterDapAn) myListView.getAdapter();
         if (myListAdapter == null) {
@@ -161,23 +174,25 @@ public class ActivityLamBai extends AppCompatActivity {
         }
         //set listAdapter in loop for getting final size
         int totalHeight = 0;
-        for (int size = 0; size < myListAdapter.getCount()/2 + (myListAdapter.getCount()%2 ==0 ? 0: 1); size++) {
+        for (int size = 0; size < myListAdapter.getCount() / 2 + (myListAdapter.getCount() % 2 == 0 ? 0 : 1); size++) {
             View listItem = myListAdapter.getView(size, null, myListView);
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
         //setting listview item in adapter
         ViewGroup.LayoutParams params = myListView.getLayoutParams();
-        params.height = totalHeight ;
+        params.height = totalHeight;
         myListView.setLayoutParams(params);
         // print height of adapter on log
 //        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 
-    public void nopBai(){
-        timer.cancel();
-        Intent intent = new Intent(this, ActivityKetQuaThi.class);
-        startActivity(intent);
-        finish();
+    public void nopBai() {
+        if(!isShowAnswer) {
+            timer.cancel();
+            Intent intent = new Intent(this, ActivityKetQuaThi.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    >
+    android:orientation="vertical">
+
     <LinearLayout
+        android:id="@+id/lnDapAn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/botron"
-        android:orientation="vertical"
-        >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <CheckBox
-        android:id="@+id/ckboxDapAn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" />
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/tvDapAn"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:textSize="15sp"
-        > </TextView>
-</LinearLayout>
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/code"
-        android:id="@+id/imvHinhDapAn"
-        android:background="@drawable/yourradio"
-        />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/ckboxDapAn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvDapAn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:textSize="15sp"></TextView>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imvHinhDapAn"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/yourradio"
+            android:src="@drawable/code" />
     </LinearLayout>
 </LinearLayout>

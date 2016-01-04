@@ -65,7 +65,7 @@
     <Button
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:text="@string/submit"
+        android:text="@string/view_answer"
         android:id="@+id/btnSubmitDiem"
         android:layout_row="1"
         android:layout_column="0"
