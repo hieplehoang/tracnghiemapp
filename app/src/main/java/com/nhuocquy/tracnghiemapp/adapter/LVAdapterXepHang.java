@@ -49,7 +49,7 @@ public class LVAdapterXepHang extends ArrayAdapter<XepHangMonHoc>{
 
         tvMonHoc.setText(list.get(position).getTenMonHoc());
         tvXepHang.setText(list.get(position).getXepHang() + "");
-        tvDiem.setText(list.get(position).getDiemCaoNhat() + "");
+        tvDiem.setText(String.format("%.2f",list.get(position).getDiemCaoNhat()));
         tvDoKho.setText(list.get(position).doKho());
         return view;
     }

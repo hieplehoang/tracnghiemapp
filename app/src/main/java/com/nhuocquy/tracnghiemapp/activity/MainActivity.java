@@ -93,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
 //                Intent intent = new Intent(MainActivity.this, ActivityPhotoView.class);
                 account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
                 if(account != null) {
+
                     Intent intent = new Intent(MainActivity.this, ActivityDanhSachXepHang.class);
                     startActivity(intent);
                 }else
-                    Toast.makeText(MainActivity.this, "No Account!!!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "No Login!!!", Toast.LENGTH_LONG).show();
             }
         });
 

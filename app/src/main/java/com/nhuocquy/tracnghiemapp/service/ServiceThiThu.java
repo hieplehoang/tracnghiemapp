@@ -169,7 +169,7 @@ public class ServiceThiThu extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Toast.makeText(this, "Service start", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Service start", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -264,7 +264,7 @@ public class ServiceThiThu extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Toast.makeText(this, "Service detroy", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "Service detroy", Toast.LENGTH_LONG).show();
         isLoad = false;
 
         File file = ServiceThiThu.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);

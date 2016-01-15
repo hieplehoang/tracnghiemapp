@@ -118,7 +118,7 @@ public class ActivityKetQuaXepHang extends AppCompatActivity {
 
                     tvMonHoc.setText(xepHangMonHoc.getTenMonHoc());
                     tvDoKho.setText(xepHangMonHoc.doKho());
-                    tvDiemCaoNhat.setText(String.format("%.1f điểm",xepHangMonHoc.getDiemCaoNhat()));
+                    tvDiemCaoNhat.setText(String.format("%.2f điểm",xepHangMonHoc.getDiemCaoNhat()));
                     tvXepHangMonHoc.setText(String.valueOf(xepHangMonHoc.getXepHang()));
                     tvViTri.setText(String.valueOf(xepHangMonHoc.getViTri()));
                 }

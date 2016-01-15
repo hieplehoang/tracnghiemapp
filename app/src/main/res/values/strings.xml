@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TracNghiemApp</string>
-    <string name="title_activity_main">Home</string>
+    <string name="title_activity_main">TracNghiem</string>
     <string name="title_activity_main2">Chọn môn thi</string>
     <string name="main_tittle">Trắc Nghiệm App</string>
     <string name="main_thi_thu">Thi Thử</string>
@@ -59,17 +59,18 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_activity_dang_ki">ActivityDangKi</string>
-    <string name="title_activity_activity_de_thi">ActivityDeThi</string>
-    <string name="title_activity_activity_ket_qua">ActivityKetQua</string>
-    <string name="title_activity_activity_ket_qua_xep_hang">ActivityKetQuaXepHang</string>
-    <string name="title_activity_activity_xep_hang">ActivityXepHang</string>
+    <string name="title_activity_activity_dang_ki">Đăng ký</string>
+    <string name="title_activity_activity_lam_bai"></string>
+    <string name="title_activity_activity_ket_qua">Kết quả</string>
+    <string name="title_activity_activity_ket_qua_xep_hang">Xếp hạng</string>
+
 
     <string name="wait">Xin chờ</string>
     <string name="conecting">Đang kết nối...</string>
+    <string name="conecting30s">Đang kết nối... Nếu quá 10s nghĩa là đã kết nối thành công, bạn vui lòng chờ ứng dụng nhận đề, có thể là 30s. Ngoài ra, bạn vui lòng submit lại. Xin cảm ơn.</string>
     <string name="title_activity_hinh_dap_an">HinhDapAn</string>
-    <string name="title_activity_activity_danh_sach_xep_hang">ActivityDanhSachXepHang</string>
-    <string name="title_activity_activity_ket_qua_submit">ActivityKetQuaSubmit</string>
+    <string name="title_activity_activity_danh_sach_xep_hang">Danh sách xếp hạng</string>
+    <string name="title_activity_activity_nhan_de_thi">Nhận đề thi</string>
 
 
 

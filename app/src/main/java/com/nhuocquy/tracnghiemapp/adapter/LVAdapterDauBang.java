@@ -47,7 +47,7 @@ public class LVAdapterDauBang extends ArrayAdapter<DauBang>{
         DauBang db = list.get(position);
 
         tvMonHoc.setText(db.getTen());
-        tvDiem.setText(db.getDiem() + "");
+        tvDiem.setText(String.format("%.2f",db.getDiem()));
         tvXepHang.setText( db.getXepHang() +"");
         return view;
     }

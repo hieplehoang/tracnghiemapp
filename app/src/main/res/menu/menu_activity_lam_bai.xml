@@ -8,6 +8,6 @@
 
     <item android:title="Item 2" android:id="@+id/mnBtnRight" app:showAsAction="always"  android:icon="@drawable/righticon"/>
 
-    <item android:title="Item 3" android:id="@+id/mnBtnSubmit"  app:showAsAction="ifRoom"  android:icon="@drawable/checkok"/>
+    <item android:title="Item 3" android:id="@+id/mnBtnSubmit"  app:showAsAction="always"  android:icon="@drawable/checkok"/>
 
 </menu>

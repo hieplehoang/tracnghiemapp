@@ -19,12 +19,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.nhuocquy.tracnghiemapp.R;
+import com.nhuocquy.tracnghiemapp.constant.MyConstant;
+import com.nhuocquy.tracnghiemapp.constant.MyVar;
+import com.nhuocquy.tracnghiemapp.model.DapAn;
+import com.nhuocquy.tracnghiemapp.model.MonHoc;
 import com.nhuocquy.tracnghiemapp.service.ServiceThiThu;
 
 import java.io.File;
@@ -40,18 +49,20 @@ public class ActivityPhotoView extends AppCompatActivity {
 
     private static final String ISLOCKED_ARG = "isLocked";
     public static final String LIST_IMAGE = "listImage";
+    public static final String CAUHOI_POST = "cauHoiPost";
 
     private ViewPager mViewPager;
     SamplePagerAdapter adapter;
     Messenger mService;
     boolean isBound;
+    List<DapAn> listDapaAn;
     ServiceConnection mConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
             mService = new Messenger(service);
             isBound = true;
-            Toast.makeText(ActivityPhotoView.this, "Connected service",
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(ActivityPhotoView.this, "Connected service",
+//                    Toast.LENGTH_LONG).show();
             for (String fileName : adapter.unRegister){
                 adapter.registerService(fileName);
             }
@@ -60,8 +71,8 @@ public class ActivityPhotoView extends AppCompatActivity {
         public void onServiceDisconnected(ComponentName className) {
             mService = null;
             isBound = false;
-            Toast.makeText(ActivityPhotoView.this, "Disconect service",
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(ActivityPhotoView.this, "Disconect service",
+//                    Toast.LENGTH_LONG).show();
         }
     };
 
@@ -71,8 +82,9 @@ public class ActivityPhotoView extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager);
 
 
+
         mViewPager = (HackyViewPager) findViewById(R.id.view_pager);
-        setContentView(mViewPager);
+//        setContentView(mViewPager);
 
 //        List<String> listFile = new ArrayList<>();
 //        listFile.add("0763742627.jpg");
@@ -83,9 +95,35 @@ public class ActivityPhotoView extends AppCompatActivity {
         if(listFile == null){
             listFile = new ArrayList<>();
         }
+        int cauHoiPost = getIntent().getIntExtra(CAUHOI_POST,0);
+        MonHoc monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
+        listDapaAn = monHoc.getDsCauHoi().get(cauHoiPost).getDsDapAn();
+
+
+        setTitle("Câu " + (cauHoiPost + 1));
+        //
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.listDapAn);
+
+        for (int i = 0; i < listDapaAn.size() ; i ++){
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(convert(i));
+            checkBox.setChecked(listDapaAn.get(i).isSelected());
+
+            checkBox.setOnCheckedChangeListener(new OnChange(i));
+
+            linearLayout.addView(checkBox,i);
+        }
         Log.e("ActivityPhotoView", listFile.toString());
         adapter= new SamplePagerAdapter(this, listFile);
         mViewPager.setAdapter(adapter);
+
+        Button btnOk = (Button) findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -121,8 +159,8 @@ public class ActivityPhotoView extends AppCompatActivity {
     void doBindService() {
         bindService(new Intent(ActivityPhotoView.this,
                 ServiceThiThu.class), mConnection, Context.BIND_AUTO_CREATE);
-        Toast.makeText(ActivityPhotoView.this, "Connecting service",
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(ActivityPhotoView.this, "Connecting service",
+//                Toast.LENGTH_LONG).show();
 
     }
 
@@ -131,8 +169,8 @@ public class ActivityPhotoView extends AppCompatActivity {
             unbindService(mConnection);
             isBound = false;
         }
-        Toast.makeText(ActivityPhotoView.this, "Disconnecting service",
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(ActivityPhotoView.this, "Disconnecting service",
+//                Toast.LENGTH_LONG).show();
     }
 
     class SamplePagerAdapter extends PagerAdapter {
@@ -254,5 +292,22 @@ public class ActivityPhotoView extends AppCompatActivity {
 
     public static String getExtention(String path) {
         return path.substring(path.length() - 7, path.length());
+    }
+
+
+    public String convert(int thuTu) {
+        return Character.getName(thuTu + 65).substring(Character.getName(thuTu + 65).length() - 1);
+    }
+    class OnChange implements CompoundButton.OnCheckedChangeListener{
+        int pos;
+
+        public OnChange(int pos) {
+            this.pos = pos;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            listDapaAn.get(pos).setSelected(buttonView.isChecked());
+        }
     }
 }

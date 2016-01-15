@@ -95,7 +95,7 @@ public class ActivityChonMonThiThu extends AppCompatActivity implements View.OnC
         }
             
         new AsyncTask<Long, Void, MonHoc>() {
-            final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityChonMonThiThu.this, ActivityChonMonThiThu.this.getResources().getString(R.string.wait), ActivityChonMonThiThu.this.getResources().getString(R.string.conecting), true);
+            final ProgressDialog ringProgressDialog = ProgressDialog.show(ActivityChonMonThiThu.this, ActivityChonMonThiThu.this.getResources().getString(R.string.wait), ActivityChonMonThiThu.this.getResources().getString(R.string.conecting30s), true);
             RestTemplate rest;
 
             @Override

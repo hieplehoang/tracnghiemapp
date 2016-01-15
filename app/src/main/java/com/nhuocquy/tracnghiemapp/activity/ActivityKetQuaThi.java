@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nhuocquy.tracnghiemapp.R;
+import com.nhuocquy.tracnghiemapp.asyntask.SubmitDiem;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
@@ -46,6 +47,8 @@ public class ActivityKetQuaThi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_qua_thi);
+
+        new SubmitDiem(this).execute();
 
         monHoc = (MonHoc) MyVar.getAttribute(MyConstant.MON_HOC);
         tvMonHoc = (TextView) findViewById(R.id.tvMonHoc);

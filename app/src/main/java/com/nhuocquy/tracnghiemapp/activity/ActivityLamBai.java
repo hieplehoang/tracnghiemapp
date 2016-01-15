@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -51,6 +54,7 @@ public class ActivityLamBai extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityLamBai.this, ActivityPhotoView.class);
                 intent.putExtra(ActivityPhotoView.LIST_IMAGE, (Serializable) monHoc.getDsCauHoi().get(cauHoiPos).getDsHinh());
+                intent.putExtra(ActivityPhotoView.CAUHOI_POST, cauHoiPos);
                 ActivityLamBai.this.startActivity(intent);
             }
         });
@@ -60,6 +64,17 @@ public class ActivityLamBai extends AppCompatActivity {
         gridViewAdapter = new GVAdapterDapAn(this, isShowAnswer);
         gridView.setAdapter(gridViewAdapter);
 
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true;
+                }
+                return false;
+            }
+
+        });
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -116,9 +131,15 @@ public class ActivityLamBai extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setUpView();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_activity_de_thi, menu);
+        getMenuInflater().inflate(R.menu.menu_activity_lam_bai, menu);
         return true;
     }
 
@@ -131,22 +152,23 @@ public class ActivityLamBai extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.mnBtnSubmit:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("Bạn có chắc chắn nộp bài trước khi kết giờ chứ? Nếu nộp bài, bạn không thể quay lại bài làm của bạn được!")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                nopBai();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = builder.create();
-                alert.show();
-
+                if (!isShowAnswer) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("Bạn có chắc chắn nộp bài trước khi kết giờ chứ? Nếu nộp bài, bạn không thể quay lại bài làm của bạn được!")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    nopBai();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
                 return true;
             case R.id.mnBtnLeft:
                 if (cauHoiPos > 0) {
@@ -174,11 +196,16 @@ public class ActivityLamBai extends AppCompatActivity {
         }
         //set listAdapter in loop for getting final size
         int totalHeight = 0;
-        for (int size = 0; size < myListAdapter.getCount() / 2 + (myListAdapter.getCount() % 2 == 0 ? 0 : 1); size++) {
+
+        for (int size = 0; size < myListAdapter.getCount(); size++) {
             View listItem = myListAdapter.getView(size, null, myListView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
+            listItem.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            if (listItem.getMeasuredHeightAndState() > totalHeight)
+                totalHeight = listItem.getMeasuredHeight();
         }
+        Log.e("Chuy chinh chep", totalHeight + "");
+        totalHeight = 300;
+        totalHeight = totalHeight * (myListAdapter.getCount() / 2 + (myListAdapter.getCount() % 2 > 0 ? 1 : 0));
         //setting listview item in adapter
         ViewGroup.LayoutParams params = myListView.getLayoutParams();
         params.height = totalHeight;
@@ -187,8 +214,40 @@ public class ActivityLamBai extends AppCompatActivity {
 //        Log.i("height of listItem:", String.valueOf(totalHeight));
     }
 
+    boolean res = false;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!isShowAnswer) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                finish();
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityLamBai.this);
+                builder.setMessage("Bạn có muốn dừng làm bài không?").setPositiveButton("Yes", dialogClickListener).setNegativeButton("No", dialogClickListener).show();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     public void nopBai() {
-        if(!isShowAnswer) {
+        if (!isShowAnswer) {
             timer.cancel();
             Intent intent = new Intent(this, ActivityKetQuaThi.class);
             startActivity(intent);
