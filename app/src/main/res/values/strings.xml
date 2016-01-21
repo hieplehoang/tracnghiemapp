@@ -3,8 +3,8 @@
     <string name="title_activity_main">TracNghiem</string>
     <string name="title_activity_main2">Chọn môn thi</string>
     <string name="main_tittle">Trắc Nghiệm App</string>
-    <string name="main_thi_thu">Thi Thử</string>
-    <string name="main_thi_that">Thi Online</string>
+    <string name="main_thi_thu">Thi online</string>
+    <string name="main_thi_that">Đóng góp ý kiến</string>
     <string name="main_xep_hang">Xếp Hạng</string>
     <string name="main_dang_nhap">Đăng nhập</string>
     <string name="main_dang_xuat">Đăng xuất</string>
@@ -64,18 +64,14 @@
     <string name="title_activity_activity_ket_qua">Kết quả</string>
     <string name="title_activity_activity_ket_qua_xep_hang">Xếp hạng</string>
 
-
+    <string name="feedback">Gửi ý kiến</string>
     <string name="wait">Xin chờ</string>
     <string name="conecting">Đang kết nối...</string>
     <string name="conecting30s">Đang kết nối... Nếu quá 10s nghĩa là đã kết nối thành công, bạn vui lòng chờ ứng dụng nhận đề, có thể là 30s. Ngoài ra, bạn vui lòng submit lại. Xin cảm ơn.</string>
     <string name="title_activity_hinh_dap_an">HinhDapAn</string>
     <string name="title_activity_activity_danh_sach_xep_hang">Danh sách xếp hạng</string>
     <string name="title_activity_activity_nhan_de_thi">Nhận đề thi</string>
-
-
-
-
-
+    <string name="title_activity_activity_feedback">ActivityFeedback</string>
 
 
 </resources>

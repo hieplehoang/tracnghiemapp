@@ -56,5 +56,9 @@ public class URL {
      */
     public static String SUMMIT_DIEM_THITHU = "http://%s:80/luudiemthithu";
 
+    public static String SUMMIT_FEEDBACK = "http://%s:80/feedback";
+
+    public static String GET_MESSAGE = "http://%s:80/getnewmessage";
+
     public static String GET_IMAGE= "http://didongz.esy.es/tracnghiemimage/";
 }

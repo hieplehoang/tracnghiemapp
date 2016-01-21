@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.ActivityLamBai">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+    <item android:id="@+id/mnFeedback" android:title="@string/feedback"
         android:orderInCategory="100" app:showAsAction="never" />
     <item android:title="Item 1" android:id="@+id/mnBtnLeft" app:showAsAction="always" android:icon="@drawable/lefticon"/>
 

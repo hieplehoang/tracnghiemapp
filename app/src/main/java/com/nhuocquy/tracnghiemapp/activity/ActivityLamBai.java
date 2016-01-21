@@ -24,6 +24,7 @@ import com.nhuocquy.tracnghiemapp.activity.photoview.ActivityPhotoView;
 import com.nhuocquy.tracnghiemapp.adapter.GVAdapterDapAn;
 import com.nhuocquy.tracnghiemapp.constant.MyConstant;
 import com.nhuocquy.tracnghiemapp.constant.MyVar;
+import com.nhuocquy.tracnghiemapp.model.Account;
 import com.nhuocquy.tracnghiemapp.model.MonHoc;
 
 import java.io.Serializable;
@@ -148,8 +149,6 @@ public class ActivityLamBai extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
         switch (item.getItemId()) {
             case R.id.mnBtnSubmit:
                 if (!isShowAnswer) {
@@ -181,6 +180,13 @@ public class ActivityLamBai extends AppCompatActivity {
                     cauHoiPos++;
                     setUpView();
                 }
+                return true;
+            case R.id.mnFeedback:
+                Account account = (Account) MyVar.getAttribute(MyConstant.ACCOUNT);
+                Intent intent = new Intent(this, ActivityFeedback.class);
+                intent.putExtra("idAcc", account != null ? account.getId():0);
+                intent.putExtra("idCauHoi", monHoc.getDsCauHoi().get(cauHoiPos).getId());
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

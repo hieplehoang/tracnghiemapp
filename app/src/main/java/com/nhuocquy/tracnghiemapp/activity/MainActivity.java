@@ -9,9 +9,12 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import com.nhuocquy.tracnghiemapp.constant.MyVar;
 import com.nhuocquy.tracnghiemapp.constant.URL;
 import com.nhuocquy.tracnghiemapp.db.DataBaseHelper;
 import com.nhuocquy.tracnghiemapp.model.Account;
+import com.nhuocquy.tracnghiemapp.model.dto.MyStatus;
 import com.nhuocquy.tracnghiemapp.service.ServiceThiThu;
 
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, ServiceThiThu.class);
+        final Intent intent = new Intent(this, ServiceThiThu.class);
         startService(intent);
 
         ref = getSharedPreferences(MyConstant.REF_NAME, MODE_PRIVATE);
@@ -57,8 +61,21 @@ public class MainActivity extends AppCompatActivity {
         btnThiThu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ActivityChonMonThiThu.class);
-                startActivity(intent);
+                if(account!=null) {
+                    Intent intent = new Intent(MainActivity.this, ActivityChonMonThiThu.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        btnThiOnline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentFb = new Intent(MainActivity.this, ActivityFeedback.class);
+                intentFb.putExtra("idAcc", account != null ? account.getId(): 0);
+                startActivity(intentFb);
             }
         });
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -138,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         protected Account doInBackground(Long... idAccounts) {
                             try {
-                                Account account = rest.getForObject(String.format(URL.LOGIN_IDACCOUNT, URL.IP, idAccounts[0]), Account.class);
+                                account = rest.getForObject(String.format(URL.LOGIN_IDACCOUNT, URL.IP, idAccounts[0]), Account.class);
                                 return account;
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -156,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 MyVar.setAttribute(MyConstant.ACCOUNT, account);
                                 setUpForLogined();
+                                isDangNhap=true;
                             }
                         }
                     }.execute(idAccount);
@@ -164,6 +182,35 @@ public class MainActivity extends AppCompatActivity {
                 MyVar.setAttribute(MyConstant.ACCOUNT, account);
                 setUpForLogined();
             }
+            new AsyncTask<Void, Void, String>(){
+                RestTemplate rest;
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    rest = new RestTemplate();
+                    rest.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+                    ((SimpleClientHttpRequestFactory) rest.getRequestFactory()).setReadTimeout(MyConstant.READ_TIME_OUT);
+                    ((SimpleClientHttpRequestFactory) rest.getRequestFactory()).setConnectTimeout(MyConstant.CONNECT_TIME_OUT);
+                }
+                @Override
+                protected String doInBackground(Void... params) {
+                    MyStatus myStatus = new MyStatus();
+                    try{
+                        myStatus = rest.getForObject(String.format(URL.GET_MESSAGE, URL.IP), MyStatus.class);
+                        return (String) myStatus.getObj();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(String s) {
+                    super.onPostExecute(s);
+                    if(s!=null)
+                        toast(s);
+                }
+            }.execute();
         } else {// neu wifi khong enable
             Toast.makeText(MainActivity.this, "No Iternet access!!!", Toast.LENGTH_LONG).show();
         }
@@ -224,5 +271,17 @@ public class MainActivity extends AppCompatActivity {
         btnDangNhap.setText(getString(R.string.main_dang_nhap));
         tvXinChao.setVisibility(View.INVISIBLE);
     }
-
+    public void toast(String message){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toast_customize,
+                (ViewGroup) findViewById(R.id.custom_toast_layout_id));
+        TextView tvMessage = (TextView) layout.findViewById(R.id.tvMessage);
+        tvMessage.setText(message);
+        // Create Custom Toast
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 }

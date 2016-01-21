@@ -58,7 +58,13 @@
         <service
             android:name=".service.ServiceThiThu"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.ActivityFeedback"
+            android:label="@string/title_activity_activity_feedback"
+            android:theme="@android:style/Theme.Dialog"
+            ></activity>
     </application>
 
 </manifest>
